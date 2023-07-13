@@ -33,7 +33,8 @@ public class FrontCache implements ServletContextAware {
 	private AboutService aboutService;
 	@Autowired
 	private ServiceService serviceService;
-
+	@Autowired
+	private ProductService  productService;
 	@Autowired
     public void setSystemManage(SystemManage systemManage) {
         FrontCache.systemManage = systemManage;
@@ -59,6 +60,7 @@ public class FrontCache implements ServletContextAware {
 		loadContact();
 		loadAbout();
 		loadService();
+		loadProduct();
 	}
 	/**
 	 * 加载系统设置缓存
@@ -159,6 +161,17 @@ public class FrontCache implements ServletContextAware {
 		services = serviceService.selectList(new Service());
 		systemManage.setService(services);
 	}
+
+	/**
+	 * 加载产品领域
+	 * @throws Exception
+	 */
+	public void loadProduct() throws Exception{
+		List<Product> products = new ArrayList<Product>();
+		products = productService.selectList(new Product());
+		systemManage.setProducts(products);
+	}
+
 
 
 }

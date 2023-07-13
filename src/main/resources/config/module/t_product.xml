@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="product">
+    <select id="product.selectPageList" parameterType="com.enterprise.entity.Product" resultType="com.enterprise.entity.Product">
+        select a.* from t_product a  where 1=1
+        <if test="modelNo!=null and modelNo!=''">
+            and a.modelNo=#{modelNo}
+        </if>
+        <if test="category!=null and category!=''">
+            and a.category like "%"#{category}"%"
+        </if>
+        order by id DESC
+        limit #{offset},#{pageSize}
+    </select>
+    <select id="product.selectPageCount" parameterType="com.enterprise.entity.Product" resultType="java.lang.Integer">
+        select count(*) from t_product where 1=1
+        <if test="modelNo!=null and modelNo!=''">
+            and a.modelNo=#{modelNo}
+        </if>
+        <if test="category!=null and category!=''">
+            and a.category like "%"#{category}"%"
+        </if>
+    </select>
+    <insert id="product.insert" parameterType="com.enterprise.entity.Product" useGeneratedKeys="true" keyProperty="id">
+        insert into t_product(
+        id
+        <if test="title!=null and title!=''">
+            ,title
+        </if>
+        <if test="modelNo!=null and modelNo!=''">
+            ,modelNo
+        </if>
+        <if test="category!=null and category!=''">
+            ,category
+        </if>
+        <if test="externalDim!=null and externalDim!=''">
+            ,externalDim
+        </if>
+        <if test="internalDim!=null and internalDim!=''">
+            ,internalDim
+        </if>
+        <if test="weight!=null and weight!=''">
+            ,weight
+        </if>
+        <if test="volumn!=null and volumn!=''">
+            ,volumn
+        </if>
+        <if test="sku!=null and sku!=''">
+            ,sku
+        </if>
+        <if test="tags!=null and tags!=''">
+            ,tags
+        </if>
+        <if test="interestetLink!=null and interestetLink!=''">
+            ,interestetLink
+        </if>
+        ,createTime,updateTime
+        ) values (
+        #{id}
+        <if test="title!=null and title!=''">
+            ,#{title}
+        </if>
+        <if test="modelNo!=null and modelNo!=''">
+            ,#{modelNo}
+        </if>
+        <if test="category!=null and category!=''">
+            ,#{category}
+        </if>
+        <if test="externalDim!=null and externalDim!=''">
+            ,#{externalDim}
+        </if>
+        <if test="internalDim!=null and internalDim!=''">
+            ,#{internalDim}
+        </if>
+        <if test="weight!=null and weight!=''">
+            ,#{weight}
+        </if>
+        <if test="volumn!=null and volumn!=''">
+            ,#{volumn}
+        </if>
+        <if test="sku!=null and sku!=''">
+            ,#{sku}
+        </if>
+        <if test="tags!=null and tags!=''">
+            ,#{tags}
+        </if>
+        <if test="interestetLink!=null and interestetLink!=''">
+            ,#{interestetLink}
+        </if>
+        ,now(),now()
+        )
+    </insert>
+    <update id="product.update" parameterType="com.enterprise.entity.Product">
+        update t_product set
+        id = #{id}
+        <if test="title!=null and title!=''">
+            ,title=#{title}
+        </if>
+        <if test="modelNo!=null and modelNo!=''">
+            ,modelNo=#{modelNo}
+        </if>
+        <if test="category!=null and category!=''">
+            ,category=#{category}
+        </if>
+        <if test="externalDim!=null and externalDim!=''">
+            ,externalDim=#{externalDim}
+        </if>
+        <if test="internalDim!=null and internalDim!=''">
+            ,internalDim=#{internalDim}
+        </if>
+        <if test="weight!=null and weight!=''">
+            ,weight=#{weight}
+        </if>
+        <if test="volumn!=null and volumn!=''">
+            ,volumn=#{volumn}
+        </if>
+        <if test="sku!=null and sku!=''">
+            ,sku=#{sku}
+        </if>
+        <if test="tags!=null and tags!=''">
+            ,tags=#{tags}
+        </if>
+        <if test="interestetLink!=null and interestetLink!=''">
+            ,interestetLink=#{interestetLink}
+        </if>
+        where id = #{id}
+    </update>
+    <select id="product.selectOne" parameterType="com.enterprise.entity.Product" resultType="com.enterprise.entity.Product">
+        select * from t_product where 1=1
+        <if test="id!=0">
+            and id=#{id}
+        </if>
+    </select>
+
+
+    <select id="product.selectList" parameterType="com.enterprise.entity.Product" resultType="com.enterprise.entity.Product">
+        select * from t_product where 1=1
+        order by id DESC
+    </select>
+    <select id="product.selectById" parameterType="int" resultType="com.enterprise.entity.Product">
+        select * from t_product where 1=1 and id=#{id}
+    </select>
+    <select id="product.selectNext" parameterType="int" resultType="com.enterprise.entity.Product">
+        select * from t_product where id = (select id from t_product where id &lt; #{id} order by id desc limit 1)
+    </select>
+    <select id="product.selectPrevious" parameterType="int" resultType="com.enterprise.entity.Product">
+        select * from t_product where id = (select id from t_product where id &gt; #{id} order by id desc limit 1)
+    </select>
+    <delete id="product.delete" parameterType="com.enterprise.entity.Product">
+        delete from t_product where id=#{id}
+    </delete>
+    <delete id="product.deleteById" parameterType="int">
+        delete from t_product where id=#{id}
+    </delete>
+</mapper>

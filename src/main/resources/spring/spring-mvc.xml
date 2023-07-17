@@ -22,6 +22,8 @@
 	</mvc:annotation-driven>
 	<mvc:resources mapping="/resource/**" location="/resource/" cache-period="86400"/>
 	<mvc:resources mapping="/attached/**" location="/attached/" cache-period="86400"/>
+	<mvc:resources mapping="/static/**" location="/static/"/>
+
 	<mvc:default-servlet-handler/>
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
         <property name="basename" value="i18n" />

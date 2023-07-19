@@ -13,7 +13,8 @@
  */
 
 //根目录路径，可以指定绝对路径，比如 /var/www/attached/
-String rootPath = pageContext.getServletContext().getRealPath("/") + "attached/";
+//String rootPath = pageContext.getServletContext().getRealPath("/") + "attached/";
+String rootPath = "D:\\study-source\\enterprise\\src\\main\\webapp\\attached\\";
 //根目录URL，可以指定绝对路径，比如 http://www.yoursite.com/attached/
 String rootUrl  = request.getContextPath() + "/attached/";
 //图片扩展名
@@ -22,7 +23,7 @@ String[] fileTypes = new String[]{"gif", "jpg", "jpeg", "png", "bmp"};
 String dirName = request.getParameter("dir");
 if (dirName != null) {
 	if(!Arrays.<String>asList(new String[]{"image", "flash", "media", "file"}).contains(dirName)){
-		out.println("Invalid Directory name.");
+		System.out.println("Invalid Directory name.");
 		return;
 	}
 	rootPath += dirName + "/";
@@ -48,18 +49,18 @@ String order = request.getParameter("order") != null ? request.getParameter("ord
 
 //不允许使用..移动到上一级目录
 if (path.indexOf("..") >= 0) {
-	out.println("Access is not allowed.");
+	System.out.println("Access is not allowed.");
 	return;
 }
 //最后一个字符不是/
 if (!"".equals(path) && !path.endsWith("/")) {
-	out.println("Parameter is not valid.");
+	System.out.println("Parameter is not valid.");
 	return;
 }
 //目录不存在或不是目录
 File currentPathFile = new File(currentPath);
 if(!currentPathFile.isDirectory()){
-	out.println("Directory does not exist.");
+	System.out.println("Directory does not exist.");
 	return;
 }
 
@@ -104,7 +105,7 @@ result.put("total_count", fileList.size());
 result.put("file_list", fileList);
 
 response.setContentType("application/json; charset=UTF-8");
-out.println(result.toJSONString());
+	System.out.println(result.toJSONString());
 %>
 <%!
 public class NameComparator implements Comparator {

@@ -12,10 +12,10 @@ import javax.annotation.Resource;
  * Created by Cesiumai on 2016/7/8.
  */
 @Service("aboutService")
-public class AboutServiceImpl extends ServersManage<About,AboutDao> implements AboutService{
+public class AboutServiceImpl extends ServersManage<About, AboutDao> implements AboutService {
     @Override
-    @Resource(name="aboutDao")
+    @Resource(name = "aboutDao")
     public void setDao(AboutDao dao) {
-        this.dao=dao;
+        this.dao = dao;
     }
 }

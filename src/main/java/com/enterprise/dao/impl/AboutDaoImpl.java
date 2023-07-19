@@ -23,7 +23,7 @@ public class AboutDaoImpl implements AboutDao {
 
     @Override
     public int insert(About about) {
-        return dao.insert("about.insert",about);
+        return dao.insert("about.insert", about);
     }
 
     @Override
@@ -33,31 +33,31 @@ public class AboutDaoImpl implements AboutDao {
 
     @Override
     public int update(About about) {
-        return dao.delete("about.update",about);
+        return dao.delete("about.update", about);
     }
 
     @Override
     public About selectOne(About about) {
-        return (About) dao.selectOne("about.selectOne",about);
+        return (About) dao.selectOne("about.selectOne", about);
     }
 
     @Override
     public PageModel selectPageList(About about) {
-        return dao.selectPageList("about.selectPageList","about.selectPageCount",about);
+        return dao.selectPageList("about.selectPageList", "about.selectPageCount", about);
     }
 
     @Override
     public List<About> selectList(About about) {
-        return dao.selectList("about.selectList",about);
+        return dao.selectList("about.selectList", about);
     }
 
     @Override
     public int deleteById(int id) {
-        return dao.delete("about.deleteById",id);
+        return dao.delete("about.deleteById", id);
     }
 
     @Override
     public About selectById(int id) {
-        return (About) dao.selectOne("about.selectById",id);
+        return (About) dao.selectOne("about.selectById", id);
     }
 }

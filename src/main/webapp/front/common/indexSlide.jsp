@@ -14,27 +14,31 @@
         position: relative;
         height: 481px;
     }
+
     .swiper-container {
         position: absolute;
         height: 481px;
         width: 100%;
     }
+
     .swiper-slide {
         background-position: center 0;
         background-repeat: no-repeat;
         box-sizing: content-box;
         float: left;
     }
+
     .swiper-pagination-bullet {
         margin: 1px;
         width: 42px;
         height: 11px;
         display: inline-block;
         background: #fff;
-        border-radius:0;
+        border-radius: 0;
         filter: alpha(opacity=70);
         opacity: 0.7;
     }
+
     .swiper-pagination-bullet-active {
         opacity: 1;
         background: #fff;
@@ -48,6 +52,7 @@
         opacity: 0.7;
         display: inline-block;
     }
+
     .swiper-button-next {
         width: 32px;
         height: 40px;
@@ -56,24 +61,26 @@
         opacity: 0.7;
         display: inline-block;
     }
+
     .swiper-button-prev:hover,
-    .swiper-button-next:hover{
+    .swiper-button-next:hover {
         filter: alpha(opacity=100);
         opacity: 1;
     }
-   </style>
+</style>
 <div id="index-banner" class="">
-<div class="swiper-container">
-    <div class="swiper-wrapper">
-        <c:forEach var="item" items="<%=SystemManage.getInstance().getIndexImgs()%>">
-            <div class="swiper-slide"  style="background-image: url(<%=SystemManage.getInstance().getSystemSetting().getImageRootPath()%>/${item.pictureUrl});"></div>
-        </c:forEach>
+    <div class="swiper-container">
+        <div class="swiper-wrapper">
+            <c:forEach var="item" items="<%=SystemManage.getInstance().getIndexImgs()%>">
+                <div class="swiper-slide"
+                     style="background-image: url(<%=SystemManage.getInstance().getSystemSetting().getImageRootPath()%>/${item.pictureUrl});"></div>
+            </c:forEach>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
     </div>
-    <!-- Add Pagination -->
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
-</div>
 </div>
 <script>
     $().ready(function () {

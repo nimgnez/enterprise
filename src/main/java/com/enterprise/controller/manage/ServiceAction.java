@@ -19,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/manage/service/")
-public class ServiceAction extends BaseController<Service>{
+public class ServiceAction extends BaseController<Service> {
     private static final String page_toList = "/manage/service/serviceList";
     private static final String page_toEdit = "/manage/service/serviceEdit";
     private static final String page_toAdd = "/manage/service/serviceEdit";
@@ -27,15 +27,16 @@ public class ServiceAction extends BaseController<Service>{
     private ServiceService serviceService;
     @Autowired
     private FrontCache frontCache;
+
     @Override
     public Services<Service> getService() {
         return serviceService;
     }
 
     private ServiceAction() {
-        super.page_toList=page_toList;
-        super.page_toEdit=page_toEdit;
-        super.page_toAdd=page_toAdd;
+        super.page_toList = page_toList;
+        super.page_toEdit = page_toEdit;
+        super.page_toAdd = page_toAdd;
     }
 
     @Override
@@ -43,7 +44,7 @@ public class ServiceAction extends BaseController<Service>{
         getService().insert(service);
         insertAfter(service);
         frontCache.loadService();
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
 
@@ -60,7 +61,7 @@ public class ServiceAction extends BaseController<Service>{
     public String deletes(HttpServletRequest request, String[] ids, @ModelAttribute("e") Service service, RedirectAttributes flushAttrs) throws Exception {
         getService().deletes(ids);
         frontCache.loadService();
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
 }

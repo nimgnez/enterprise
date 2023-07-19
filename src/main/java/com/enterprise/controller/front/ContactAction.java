@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller("contactActionController")
 @RequestMapping("/")
-public class ContactAction{
+public class ContactAction {
 
     @RequestMapping("contact")
     public String contact() {

@@ -3,8 +3,9 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="service">
-    <select id="service.selectPageList" parameterType="com.enterprise.entity.Service" resultType="com.enterprise.entity.Service">
-        select * from t_service  where 1=1
+    <select id="service.selectPageList" parameterType="com.enterprise.entity.Service"
+            resultType="com.enterprise.entity.Service">
+        select * from t_service where 1=1
         <if test="title!=null and title!=''">
             and title like "%"#{title}"%"
         </if>
@@ -70,7 +71,8 @@
 
         where id = #{id}
     </update>
-    <select id="service.selectOne" parameterType="com.enterprise.entity.Service" resultType="com.enterprise.entity.Service">
+    <select id="service.selectOne" parameterType="com.enterprise.entity.Service"
+            resultType="com.enterprise.entity.Service">
         select * from t_service where 1=1
         <if test="id!=0">
             and id=#{id}
@@ -84,17 +86,28 @@
     </select>
 
 
-    <select id="service.selectList" parameterType="com.enterprise.entity.Service" resultType="com.enterprise.entity.Service">
-        select * from t_service where 1=1 and status ='y'
+    <select id="service.selectList" parameterType="com.enterprise.entity.Service"
+            resultType="com.enterprise.entity.Service">
+        select *
+        from t_service
+        where 1 = 1
+          and status = 'y'
         order by orders DESC
     </select>
     <select id="service.selectById" parameterType="int" resultType="com.enterprise.entity.Service">
-        select * from t_service where 1=1 and id=#{id}
+        select *
+        from t_service
+        where 1 = 1
+          and id = #{id}
     </select>
     <delete id="service.delete" parameterType="com.enterprise.entity.Service">
-        delete from t_service where id=#{id}
+        delete
+        from t_service
+        where id = #{id}
     </delete>
     <delete id="service.deleteById" parameterType="int">
-        delete from t_service where id=#{id}
+        delete
+        from t_service
+        where id = #{id}
     </delete>
 </mapper>

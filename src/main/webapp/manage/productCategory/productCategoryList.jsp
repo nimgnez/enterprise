@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="/manage/system/pageBase.jsp" %>
-<%@ page info="文章分类" %>
+<%@ page info="产品分类" %>
 
 <div style="height:auto!important;height:550px;min-height:550px;">
     <h3 style="border-bottom: 1px solid #D7D7D7;color: #666666;font-size: 28px;padding-bottom: 20px;margin-bottom: 30px;">
@@ -20,7 +20,7 @@
     </h3>
 
     <table class="table table-bordered table-hover table-striped">
-        <tr >
+        <tr>
             <th width="300">分类名称</th>
             <th>分类描述</th>
             <th width="100">排序</th>

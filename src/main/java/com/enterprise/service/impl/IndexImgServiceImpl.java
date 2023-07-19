@@ -12,9 +12,9 @@ import javax.annotation.Resource;
  * Created by Cesiumai on 2016/5/27.
  */
 @Service("indexImgService")
-public class IndexImgServiceImpl extends ServersManage<IndexImg,IndexImgDao> implements IndexImgService {
+public class IndexImgServiceImpl extends ServersManage<IndexImg, IndexImgDao> implements IndexImgService {
     @Override
-    @Resource(name="indexImgDao")
+    @Resource(name = "indexImgDao")
     public void setDao(IndexImgDao dao) {
         this.dao = dao;
     }

@@ -9,23 +9,23 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.DispatcherServlet;
 
 
-public class MultipartDispatcherServlet extends DispatcherServlet{
-	@Override
-	protected  HttpServletRequest checkMultipart(HttpServletRequest request) throws MultipartException{
-		HttpServletRequest servletRequest = super.checkMultipart(request);
-		if(servletRequest instanceof MultipartHttpServletRequest
-				&& !(RequestContextHolder.currentRequestAttributes() instanceof MultipartServletRequestAttributes)){
-			RequestContextHolder.setRequestAttributes(new MultipartServletRequestAttributes(servletRequest));
-		}
-		return servletRequest;
-	}
-	
-	public static class MultipartServletRequestAttributes extends ServletRequestAttributes{
+public class MultipartDispatcherServlet extends DispatcherServlet {
+    @Override
+    protected HttpServletRequest checkMultipart(HttpServletRequest request) throws MultipartException {
+        HttpServletRequest servletRequest = super.checkMultipart(request);
+        if (servletRequest instanceof MultipartHttpServletRequest
+                && !(RequestContextHolder.currentRequestAttributes() instanceof MultipartServletRequestAttributes)) {
+            RequestContextHolder.setRequestAttributes(new MultipartServletRequestAttributes(servletRequest));
+        }
+        return servletRequest;
+    }
 
-		public MultipartServletRequestAttributes(HttpServletRequest request) {
-			super(request);
-		}
-		
-	}
+    public static class MultipartServletRequestAttributes extends ServletRequestAttributes {
+
+        public MultipartServletRequestAttributes(HttpServletRequest request) {
+            super(request);
+        }
+
+    }
 
 }

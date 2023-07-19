@@ -55,12 +55,14 @@
             });
         }
     }
-    function downloadsql(data){
-        var _url = "<%=path%>/manage/backups/downloadSql?fileName="+data;
+
+    function downloadsql(data) {
+        var _url = "<%=path%>/manage/backups/downloadSql?fileName=" + data;
         window.open(_url);
         return false;
     }
-    function deletesql(data,tip){
+
+    function deletesql(data, tip) {
         if (confirm(tip)) {
             var _url = "<%=path%>/manage/backups/deleteRecover?fileName=" + data;
             location.href = _url;

@@ -14,7 +14,7 @@ public class ProductServiceImpl extends ServersManage<Product, ProductDao> imple
 
 
     @Override
-    @Resource(name="productDao")
+    @Resource(name = "productDao")
     public void setDao(ProductDao dao) {
         this.dao = dao;
     }

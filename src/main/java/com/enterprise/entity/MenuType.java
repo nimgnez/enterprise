@@ -5,8 +5,8 @@ package com.enterprise.entity;
  */
 public enum MenuType {
 
-	module,
-	page,
-	button
-	
+    module,
+    page,
+    button
+
 }

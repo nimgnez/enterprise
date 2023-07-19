@@ -8,11 +8,11 @@ import java.util.Date;
 /**
  * 产品实体类
  */
-public class Product extends PageModel implements Serializable{
+public class Product extends PageModel implements Serializable {
     private static final long serialVersionUID = 1L;
     private String title;       //产品标题
     private String modelNo;  //产品型号
-    private String category;     //产品分类
+    private Integer categoryId;     //产品分类
     private String externalDim;    //产品外形尺寸
     private String internalDim;  //产品内径尺寸
     private String weight;         //重量
@@ -20,23 +20,26 @@ public class Product extends PageModel implements Serializable{
     private String sku;          //库存
     private String interestetLink;      //兴趣链接
     private String tags;    //产品标签
+    private String status;//产品是否上线
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
+
     @Override
     public void clean() {
         super.clean();
-        title=null;
-        modelNo=null;
-        category=null;
-        externalDim=null;
-        internalDim=null;
-        weight=null;
-        volumn=null;
+        title = null;
+        modelNo = null;
+        categoryId = null;
+        externalDim = null;
+        internalDim = null;
+        weight = null;
+        volumn = null;
         sku = null;
         interestetLink = null;
         tags = null;
+        status = null;
         createTime = null;
-        updateTime=  null;
+        updateTime = null;
     }
 
     public String getTitle() {
@@ -55,12 +58,12 @@ public class Product extends PageModel implements Serializable{
         this.modelNo = modelNo;
     }
 
-    public String getCategory() {
-        return category;
+    public Integer getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(Integer categoryId) {
+        this.categoryId = categoryId;
     }
 
     public String getExternalDim() {
@@ -133,5 +136,13 @@ public class Product extends PageModel implements Serializable{
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

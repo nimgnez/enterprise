@@ -2,13 +2,14 @@
  * Themes, rules, and i18n support
  * Locale: Chinese; 中文; TW (Taiwan)
  *********************************/
-(function(factory) {
-    'function' === typeof define && (define.amd || define.cmd) ? define(function(require, exports, module){
-        var $ = require('jquery')||jQuery; $._VALIDATOR_URI = module.uri;
+(function (factory) {
+    'function' === typeof define && (define.amd || define.cmd) ? define(function (require, exports, module) {
+        var $ = require('jquery') || jQuery;
+        $._VALIDATOR_URI = module.uri;
         require('../jquery.validator.min')($);
         factory($);
     }) : factory(jQuery);
-}(function($) {
+}(function ($) {
 
     /* Global configuration
      */
@@ -21,20 +22,20 @@
         // Custom rules
         rules: {
             digits: [/^\d+$/, "請填寫數字"]
-            ,letters: [/^[a-z]+$/i, "請填寫字母"]
-            ,date: [/^\d{4}-\d{2}-\d{2}$/, "請填寫有效的日期，格式:yyyy-mm-dd"]
-            ,time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "請填寫有效的時間，00:00到23:59之間"]
-            ,email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "請填寫有效的電郵"]
-            ,url: [/^(https?|s?ftp):\/\/\S+$/i, "請填寫有效的網址"]
-            ,accept: function (element, params){
+            , letters: [/^[a-z]+$/i, "請填寫字母"]
+            , date: [/^\d{4}-\d{2}-\d{2}$/, "請填寫有效的日期，格式:yyyy-mm-dd"]
+            , time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "請填寫有效的時間，00:00到23:59之間"]
+            , email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "請填寫有效的電郵"]
+            , url: [/^(https?|s?ftp):\/\/\S+$/i, "請填寫有效的網址"]
+            , accept: function (element, params) {
                 if (!params) return true;
                 var ext = params[0],
                     value = $(element).val();
                 return (ext === '*') ||
-                       (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
-                       this.renderMsg("只接受{1}後綴的文件", ext.replace(/\|/g, ','));
+                    (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
+                    this.renderMsg("只接受{1}後綴的文件", ext.replace(/\|/g, ','));
             }
-            
+
         },
 
         // Default error messages
@@ -114,7 +115,7 @@
             formClass: 'n-yellow',
             msgClass: 'n-right',
             msgArrow: TPL_ARROW,
-            msgShow: function($msgbox, type){
+            msgShow: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 if ($el.is(':animated')) return;
                 if (type === 'error') {
@@ -127,10 +128,10 @@
                     $el.css({left: 0, opacity: 1}).fadeIn(200);
                 }
             },
-            msgHide: function($msgbox, type){
+            msgHide: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 $el.stop().delay(100).show()
-                    .animate({left: '20px', opacity: 0}, 300, function(){
+                    .animate({left: '20px', opacity: 0}, 300, function () {
                         $msgbox.hide();
                     });
             }

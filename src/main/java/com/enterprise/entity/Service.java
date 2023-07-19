@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 服务领域实体类
  * Created by Cesiumai on 2016/7/15.
  */
-public class Service extends PageModel implements Serializable{
+public class Service extends PageModel implements Serializable {
     private String title;
     private String contentHtml;
     private String status;
@@ -17,10 +17,10 @@ public class Service extends PageModel implements Serializable{
     @Override
     public void clean() {
         super.clean();
-        title=null;
-        contentHtml=null;
-        status=null;
-        orders=0;
+        title = null;
+        contentHtml = null;
+        status = null;
+        orders = 0;
     }
 
     public String getTitle() {

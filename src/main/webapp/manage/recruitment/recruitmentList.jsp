@@ -21,7 +21,8 @@
         </h3>
         <div class="filter">
             <div style="float: left">
-                <button method="deletes" class="btn btn-danger" style="padding:0px 5px;margin-top: -4px;" onclick="return submitIDs(this,'确定删除选择的招聘信息?');">
+                <button method="deletes" class="btn btn-danger" style="padding:0px 5px;margin-top: -4px;"
+                        onclick="return submitIDs(this,'确定删除选择的招聘信息?');">
                     <i class="icon-trash"></i>删除
                 </button>
 
@@ -116,6 +117,7 @@
             }
         });
     });
+
     function submitIDs(obj, tip) {
         if ($("input:checked").size() == 0) {
             alert("请先选择要操作的内容！");
@@ -130,6 +132,7 @@
         }
         return false;
     }
+
     //查询
     function selectList(obj) {
 

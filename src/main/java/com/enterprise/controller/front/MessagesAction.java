@@ -52,11 +52,12 @@ public class MessagesAction {
         frontCache.loadMessage();
         return "ok";
     }
+
     @RequestMapping("checkVcode")
     @ResponseBody
     public String checkVcode(@ModelAttribute("e") Messages e, HttpServletResponse response) throws IOException {
         String vcode = RequestHolder.getSession().getAttribute("validateCode").toString();
-        if(StringUtils.isNotBlank(vcode)&&!(vcode.toLowerCase()).equals(e.getVcode().toLowerCase())){
+        if (StringUtils.isNotBlank(vcode) && !(vcode.toLowerCase()).equals(e.getVcode().toLowerCase())) {
             return "{\"error\":\"验证码不正确!\"}";
         }
         return null;

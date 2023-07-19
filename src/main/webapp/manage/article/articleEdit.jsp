@@ -10,9 +10,9 @@
 <%@ include file="/manage/system/pageBase.jsp" %>
 <%@ page info="文章列表" %>
 <%
-    Map<String,String> statuss = new LinkedHashMap<String,String>();
-    statuss.put("y","显示");
-    statuss.put("n","不显示");
+    Map<String, String> statuss = new LinkedHashMap<String, String>();
+    statuss.put("y", "显示");
+    statuss.put("n", "不显示");
 %>
 <form action="<%=path %>/manage/article" name="form" id="form" method="post">
     <div style="height:auto!important;height:550px;min-height:550px;">
@@ -37,18 +37,20 @@
                 <th style="text-align: right;">文章分类</th>
                 <td style="text-align: left;">
                     <select id="categoryId" name="categoryId">
-                        <c:forEach var="item" items="<%=SystemManage.getInstance().getArticleCategory()%>">
-                            <option value="${item.id}" <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
+                        <c:forEach var="item" items="<%=SystemManage.getInstance().getProductCategory()%>">
+                            <option value="${item.id}"
+                                    <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
                         </c:forEach>
                     </select>
                 </td>
             </tr>
             <tr>
                 <th style="text-align: right;">缩略图</th>
-                <td style="text-align: left;"><input type="text"  size="40"
+                <td style="text-align: left;"><input type="text" size="40"
                                                      id="image" name="image" value="${e.image}"
                 />
-                    <input type="button" name="imageFile" value="选择图片" class="btn btn-primary" style="padding: 0px 12px;margin-top: -5px;"/>
+                    <input type="button" name="imageFile" value="选择图片" class="btn btn-primary"
+                           style="padding: 0px 12px;margin-top: -5px;"/>
                 </td>
             </tr>
             <tr>
@@ -61,7 +63,8 @@
                 <td style="text-align: left;">
                     <select name="status">
                         <c:forEach var="entry" items="<%=statuss %>">
-                            <option value="${entry.key}" <c:if test="${e.status eq entry.key}">selected="selected" </c:if>>${entry.value}</option>
+                            <option value="${entry.key}"
+                                    <c:if test="${e.status eq entry.key}">selected="selected" </c:if>>${entry.value}</option>
                         </c:forEach>
                     </select>
                 </td>
@@ -69,7 +72,8 @@
             <tr>
                 <th style="text-align: right;">文章描述</th>
                 <td style="text-align: left;">
-                    <textarea id="description" name="description" class="textArea" cols="120"  data-rule="description;length[1~300];"
+                    <textarea id="description" name="description" class="textArea" cols="120"
+                              data-rule="description;length[1~300];"
                               rows="4">${e.description}</textarea>
                 </td>
             </tr>
@@ -114,9 +118,9 @@
 
         });
         var editor = K.editor({
-            allowFileManager : true,
+            allowFileManager: true,
             uploadJson: '<%=path%>/resource/kindeditor/jsp/upload_json.jsp',
-            fileManagerJson : '<%=path%>/resource/kindeditor/jsp/file_manager_json.jsp'
+            fileManagerJson: '<%=path%>/resource/kindeditor/jsp/file_manager_json.jsp'
         });
 
         K('input[name=getHtml]').click(function (e) {
@@ -143,11 +147,11 @@
         K('input[name=appendHtml]').click(function (e) {
             editor.appendHtml('<strong>添加HTML</strong>');
         });
-        K('input[name=imageFile]').click(function() {
-            editor.loadPlugin('image', function() {
+        K('input[name=imageFile]').click(function () {
+            editor.loadPlugin('image', function () {
                 editor.plugin.imageDialog({
-                    imageUrl : K('#image').val(),
-                    clickFn : function(url) {
+                    imageUrl: K('#image').val(),
+                    clickFn: function (url) {
                         K('#image').val(url);
                         editor.hideDialog();
                     }
@@ -159,6 +163,7 @@
         });
 
     });
+
     function commit(obj) {
         content.sync();
         var _form = $("form");

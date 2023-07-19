@@ -2,13 +2,14 @@
  * Themes, rules, and i18n support
  * Locale: Chinese; 中文
  *********************************/
-(function(factory) {
-    'function' === typeof define && (define.amd || define.cmd) ? define(function(require, exports, module){
-        var $ = require('jquery')||jQuery; $._VALIDATOR_URI = module.uri;
+(function (factory) {
+    'function' === typeof define && (define.amd || define.cmd) ? define(function (require, exports, module) {
+        var $ = require('jquery') || jQuery;
+        $._VALIDATOR_URI = module.uri;
         require('../jquery.validator.min')($);
         factory($);
     }) : factory(jQuery);
-}(function($) {
+}(function ($) {
 
     /* Global configuration
      */
@@ -21,29 +22,29 @@
         // Custom rules
         rules: {
             digits: [/^\d+$/, "请填写数字"]
-            ,letters: [/^[a-z]+$/i, "请填写字母"]
-            ,date: [/^\d{4}-\d{2}-\d{2}$/, "请填写有效的日期，格式:yyyy-mm-dd"]
-            ,time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "请填写有效的时间，00:00到23:59之间"]
-            ,email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "请填写有效的邮箱"]
-            ,url: [/^(https?|s?ftp):\/\/\S+$/i, "请填写有效的网址"]
-            ,qq: [/^[1-9]\d{4,}$/, "请填写有效的QQ号"]
-            ,IDcard: [/^\d{6}(19|2\d)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)?$/, "请填写正确的身份证号码"]
-            ,tel: [/^(?:(?:0\d{2,3}[\- ]?[1-9]\d{6,7})|(?:[48]00[\- ]?[1-9]\d{6}))$/, "请填写有效的电话号码"]
-            ,fax: [/^(?:(?:0\d{2,3}[\- ]?[1-9]\d{6,7})|(?:[48]00[\- ]?[1-9]\d{6}))$/, "请填写有效的传真号码"]
-            ,mobile: [/^1[3-9]\d{9}$/, "请填写有效的手机号"]
-            ,zipcode: [/^\d{6}$/, "请检查邮政编码格式"]
-            ,chinese: [/^[\u0391-\uFFE5]+$/, "请填写中文字符"]
-            ,username: [/^\w{3,12}$/, "请填写3-12位数字、字母"]
-            ,password: [/^[\S]{6,16}$/, "请填写6-16位字符，不能包含空格"]
-            ,accept: function (element, params){
+            , letters: [/^[a-z]+$/i, "请填写字母"]
+            , date: [/^\d{4}-\d{2}-\d{2}$/, "请填写有效的日期，格式:yyyy-mm-dd"]
+            , time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "请填写有效的时间，00:00到23:59之间"]
+            , email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "请填写有效的邮箱"]
+            , url: [/^(https?|s?ftp):\/\/\S+$/i, "请填写有效的网址"]
+            , qq: [/^[1-9]\d{4,}$/, "请填写有效的QQ号"]
+            , IDcard: [/^\d{6}(19|2\d)?\d{2}(0[1-9]|1[012])(0[1-9]|[12]\d|3[01])\d{3}(\d|X)?$/, "请填写正确的身份证号码"]
+            , tel: [/^(?:(?:0\d{2,3}[\- ]?[1-9]\d{6,7})|(?:[48]00[\- ]?[1-9]\d{6}))$/, "请填写有效的电话号码"]
+            , fax: [/^(?:(?:0\d{2,3}[\- ]?[1-9]\d{6,7})|(?:[48]00[\- ]?[1-9]\d{6}))$/, "请填写有效的传真号码"]
+            , mobile: [/^1[3-9]\d{9}$/, "请填写有效的手机号"]
+            , zipcode: [/^\d{6}$/, "请检查邮政编码格式"]
+            , chinese: [/^[\u0391-\uFFE5]+$/, "请填写中文字符"]
+            , username: [/^\w{3,12}$/, "请填写3-12位数字、字母"]
+            , password: [/^[\S]{6,16}$/, "请填写6-16位字符，不能包含空格"]
+            , accept: function (element, params) {
                 if (!params) return true;
                 var ext = params[0],
                     value = $(element).val();
                 return (ext === '*') ||
-                       (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
-                       this.renderMsg("只接受{1}后缀的文件", ext.replace(/\|/g, ','));
+                    (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
+                    this.renderMsg("只接受{1}后缀的文件", ext.replace(/\|/g, ','));
             }
-            
+
         },
 
         // Default error messages
@@ -123,7 +124,7 @@
             formClass: 'n-yellow',
             msgClass: 'n-right',
             msgArrow: TPL_ARROW,
-            msgShow: function($msgbox, type){
+            msgShow: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 if ($el.is(':animated')) return;
                 if (type === 'error') {
@@ -136,10 +137,10 @@
                     $el.css({left: 0, opacity: 1}).fadeIn(200);
                 }
             },
-            msgHide: function($msgbox, type){
+            msgHide: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 $el.stop().delay(100).show()
-                    .animate({left: '20px', opacity: 0}, 300, function(){
+                    .animate({left: '20px', opacity: 0}, 300, function () {
                         $msgbox.hide();
                     });
             }

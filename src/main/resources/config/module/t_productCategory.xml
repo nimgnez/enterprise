@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productcategory">
+    <select id="productcategory.selectPageList" parameterType="com.enterprise.entity.ProductCategory"
+            resultType="com.enterprise.entity.ProductCategory">
+        select *
+        from t_productcategory
+        where 1 = 1
+        order by id DESC
+            limit #{offset}, #{pageSize}
+    </select>
+    <select id="productcategory.selectPageCount" parameterType="com.enterprise.entity.ProductCategory"
+            resultType="java.lang.Integer">
+        select count(*)
+        from t_productcategory
+        where 1 = 1
+    </select>
+    <insert id="productcategory.insert" parameterType="com.enterprise.entity.ProductCategory" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_productcategory(
+        id
+        <if test="catename!=null and catename!=''">
+            ,catename
+        </if>
+        ,orders
+        <if test="code!=null and code!=''">
+            ,code
+        </if>
+        <if test="description!=null and description!=''">
+            ,description
+        </if>
+
+        ) values (
+        #{id}
+        <if test="catename!=null and catename!=''">
+            ,#{catename}
+        </if>
+        ,#{orders}
+        <if test="code!=null and code!=''">
+            ,#{code}
+        </if>
+        <if test="description!=null and description!=''">
+            ,#{description}
+        </if>
+
+        )
+    </insert>
+    <update id="productcategory.update" parameterType="com.enterprise.entity.ProductCategory">
+        update t_productcategory set
+        id = #{id}
+        <if test="catename!=null and catename!=''">
+            ,catename=#{catename}
+        </if>
+        ,orders=#{orders}
+        <if test="code!=null and code!=''">
+            ,code=#{code}
+        </if>
+        <if test="description!=null and description!=''">
+            ,description=#{description}
+        </if>
+        where id = #{id}
+    </update>
+    <select id="productcategory.selectOne" parameterType="com.enterprise.entity.ProductCategory"
+            resultType="com.enterprise.entity.ProductCategory">
+        select * from t_productcategory where 1=1
+        <if test="id!=0">
+            and id=#{id}
+        </if>
+
+        <if test="catename!=null and catename!=''">
+            and catename=#{catename}
+        </if>
+        <if test="code!=null and code!=''">
+            and code=#{code}
+        </if>
+    </select>
+    <select id="productcategory.selectList" parameterType="com.enterprise.entity.ProductCategory"
+            resultType="com.enterprise.entity.ProductCategory">
+        select *
+        from t_productcategory
+        where 1 = 1
+        order by orders
+    </select>
+    <select id="productcategory.selectById" parameterType="int" resultType="com.enterprise.entity.ProductCategory">
+        select *
+        from t_productcategory
+        where 1 = 1
+          and id = #{id}
+    </select>
+    <delete id="productcategory.delete" parameterType="com.enterprise.entity.ProductCategory">
+        delete
+        from t_productcategory
+        where id = #{id}
+    </delete>
+    <delete id="productcategory.deleteById" parameterType="int">
+        delete
+        from t_productcategory
+        where id = #{id}
+    </delete>
+</mapper>

@@ -3,8 +3,9 @@
         "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="article">
-    <select id="article.selectPageList" parameterType="com.enterprise.entity.Article" resultType="com.enterprise.entity.Article">
-        select a.*,ac.catename from t_article a join t_articlecategory ac on a.categoryId=ac.id where 1=1
+    <select id="article.selectPageList" parameterType="com.enterprise.entity.Article"
+            resultType="com.enterprise.entity.Article">
+        select a.*,ac.catename from t_article a join t_productcategory ac on a.categoryId=ac.id where 1=1
         <if test="categoryId!=null and categoryId!=''">
             and a.categoryId=#{categoryId}
         </if>
@@ -116,7 +117,8 @@
 
         where id = #{id}
     </update>
-    <select id="article.selectOne" parameterType="com.enterprise.entity.Article" resultType="com.enterprise.entity.Article">
+    <select id="article.selectOne" parameterType="com.enterprise.entity.Article"
+            resultType="com.enterprise.entity.Article">
         select * from t_article where 1=1
         <if test="id!=0">
             and id=#{id}
@@ -127,23 +129,37 @@
     </select>
 
 
-    <select id="article.selectList" parameterType="com.enterprise.entity.Article" resultType="com.enterprise.entity.Article">
-        select * from t_article where 1=1
+    <select id="article.selectList" parameterType="com.enterprise.entity.Article"
+            resultType="com.enterprise.entity.Article">
+        select *
+        from t_article
+        where 1 = 1
         order by id DESC
     </select>
     <select id="article.selectById" parameterType="int" resultType="com.enterprise.entity.Article">
-        select * from t_article where 1=1 and id=#{id}
+        select *
+        from t_article
+        where 1 = 1
+          and id = #{id}
     </select>
     <select id="article.selectNext" parameterType="int" resultType="com.enterprise.entity.Article">
-        select * from t_article where id = (select id from t_article where id &lt; #{id} order by id desc limit 1)
+        select *
+        from t_article
+        where id = (select id from t_article where id &lt; #{id} order by id desc limit 1)
     </select>
     <select id="article.selectPrevious" parameterType="int" resultType="com.enterprise.entity.Article">
-        select * from t_article where id = (select id from t_article where id &gt; #{id} order by id desc limit 1)
+        select *
+        from t_article
+        where id = (select id from t_article where id &gt; #{id} order by id desc limit 1)
     </select>
     <delete id="article.delete" parameterType="com.enterprise.entity.Article">
-        delete from t_article where id=#{id}
+        delete
+        from t_article
+        where id = #{id}
     </delete>
     <delete id="article.deleteById" parameterType="int">
-        delete from t_article where id=#{id}
+        delete
+        from t_article
+        where id = #{id}
     </delete>
 </mapper>

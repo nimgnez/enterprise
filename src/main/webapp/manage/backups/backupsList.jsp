@@ -33,49 +33,50 @@
         </c:forEach>
         <tr>
             <td colspan="3">
-                <button  class="btn btn-info" style="padding:2px 15px;" onclick="return backups(this,'确定备份选择的数据库？');">
+                <button class="btn btn-info" style="padding:2px 15px;" onclick="return backups(this,'确定备份选择的数据库？');">
                     确定备份
                 </button>
             </td>
         </tr>
     </table>
-    </div>
-    <script type="text/javascript">
-        $(function () {
-            $("#firstCheckbox").on("click", function () {
-                if ($(this).prop("checked")) {
-                    $("input[type=checkbox]").prop("checked", true);
-                } else {
-                    $("input[type=checkbox]").prop("checked", false);
+</div>
+<script type="text/javascript">
+    $(function () {
+        $("#firstCheckbox").on("click", function () {
+            if ($(this).prop("checked")) {
+                $("input[type=checkbox]").prop("checked", true);
+            } else {
+                $("input[type=checkbox]").prop("checked", false);
+            }
+        });
+    });
+
+    function backups(obj, tip) {
+        if ($("input:checked").size() == 0) {
+            alert("请先选择要操作的数据表！");
+            return false;
+        }
+        var tableNames = [];
+        $("input:checkbox[name='tableNames']:checked").each(function () {
+
+            tableNames.push($(this).val());
+        });
+        var _url = "<%=path%>/manage/backups/backups";
+        if (confirm(tip)) {
+            $.ajax({
+                traditional: true,
+                type: 'post',
+                url: _url,
+                data: {tableNames},
+                dataType: "json",
+                success: function (data) {
+                    alert("备份成功！");
+                },
+                error: function () {
+                    alert("操作失败，请联系管理员或更换浏览器再试!");
                 }
             });
-        });
-        function backups(obj, tip) {
-            if ($("input:checked").size() == 0) {
-                alert("请先选择要操作的数据表！");
-                return false;
-            }
-            var tableNames =[];
-            $("input:checkbox[name='tableNames']:checked").each(function(){
-
-                tableNames.push($(this).val());
-            });
-            var _url = "<%=path%>/manage/backups/backups";
-            if (confirm(tip)) {
-                $.ajax({
-                    traditional:true,
-                    type: 'post',
-                    url: _url,
-                    data: {tableNames},
-                    dataType: "json",
-                    success: function(data){
-                            alert("备份成功！");
-                    },
-                    error:function(){
-                        alert("操作失败，请联系管理员或更换浏览器再试!");
-                    }
-                });
-            }
         }
-    </script>
-    <%@ include file="/manage/system/baseFoot.jsp" %>
+    }
+</script>
+<%@ include file="/manage/system/baseFoot.jsp" %>

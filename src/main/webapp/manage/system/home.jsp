@@ -8,6 +8,7 @@
     ul, ol {
         list-style: none;
     }
+
     ul, ol {
         margin: 0;
         padding: 0;
@@ -76,7 +77,7 @@
                 <tr>
                     <th> 门户站点：</th>
                     <td><a target="_blank"
-                            href="<%=SystemManage.getInstance().getSystemSetting().getWww() %>"><%=SystemManage.getInstance().getSystemSetting().getWww() %>
+                           href="<%=SystemManage.getInstance().getSystemSetting().getWww() %>"><%=SystemManage.getInstance().getSystemSetting().getWww() %>
                     </a>
                     </td>
                 </tr>
@@ -103,7 +104,7 @@
                             <tr>
                                 <th>门户站点：</th>
                                 <td><a target="_blank"
-                                               href="<%=SystemManage.getInstance().getSystemSetting().getWww() %>"><%=SystemManage.getInstance().getSystemSetting().getWww() %>
+                                       href="<%=SystemManage.getInstance().getSystemSetting().getWww() %>"><%=SystemManage.getInstance().getSystemSetting().getWww() %>
                                 </a></td>
                                 <th>网站标题：</th>
                                 <td><%=SystemManage.getInstance().getSystemSetting().getTitle() %>
@@ -157,7 +158,7 @@
                                 <th>网站关闭信息：</th>
                                 <td colspan="3">
                                     <%=SystemManage.getInstance().getSystemSetting().getCloseMsg() %>
-                                    </td>
+                                </td>
                             </tr>
                         </table>
                     </ul>

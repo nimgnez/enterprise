@@ -112,8 +112,11 @@
     </update>
     <select id="recruitment.selectOne" parameterType="com.enterprise.entity.Recruitment"
             resultType="com.enterprise.entity.Recruitment">
-		select * from t_recruitment where 1=1 and id = #{id}
-	</select>
+        select *
+        from t_recruitment
+        where 1 = 1
+          and id = #{id}
+    </select>
     <select id="recruitment.selectList"
             parameterType="com.enterprise.entity.Recruitment"
             resultType="com.enterprise.entity.Recruitment">
@@ -124,12 +127,19 @@
     </select>
     <select id="recruitment.selectById" parameterType="int"
             resultType="com.enterprise.entity.Recruitment">
-		select * from t_recruitment where 1=1 and id = #{id}
-	</select>
+        select *
+        from t_recruitment
+        where 1 = 1
+          and id = #{id}
+    </select>
     <delete id="recruitment.deleteById" parameterType="int">
-		delete from t_recruitment where id = #{id}
-	</delete>
+        delete
+        from t_recruitment
+        where id = #{id}
+    </delete>
     <delete id="recruitment.delete" parameterType="com.enterprise.entity.Recruitment">
-		delete from t_recruitment where id=#{id}
-	</delete>
+        delete
+        from t_recruitment
+        where id = #{id}
+    </delete>
 </mapper>

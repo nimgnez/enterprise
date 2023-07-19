@@ -9,9 +9,10 @@
          pageEncoding="UTF-8" %>
 <style>
 
-    .nav{
+    .nav {
         list-style: none outside none;
     }
+
     .nav li {
         width: 77px;
         height: 107px;
@@ -23,6 +24,7 @@
         margin-right: 16px;
         text-align: center;
     }
+
     .nav li a {
         text-decoration: none;
         color: inherit;
@@ -31,7 +33,7 @@
     }
 
 
-    .nav li a:hover{
+    .nav li a:hover {
         border-top: 3px solid #424C55;
 
     }
@@ -39,9 +41,9 @@
 <div style="width:1100px;height: 107px;margin: 0 auto;">
     <div style="width: 201px;height: 107px;float: left;">
         <a href="index">
-        <img src="<%=SystemManage.getInstance().getSystemSetting().getImageRootPath() %><%=SystemManage.getInstance().getSystemSetting().getLogo() %>"
-             width="201" height="107"/>
-            </a>
+            <img src="<%=SystemManage.getInstance().getSystemSetting().getImageRootPath() %><%=SystemManage.getInstance().getSystemSetting().getLogo() %>"
+                 width="201" height="107"/>
+        </a>
     </div>
     <div style="width: 768px;height: 107px;float: right;overflow: hidden">
         <ul class="nav">

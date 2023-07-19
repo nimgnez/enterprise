@@ -8,7 +8,7 @@ import java.io.Serializable;
  * 文章实体类
  * Created by Cesiumai on 2016/6/14.
  */
-public class Article extends PageModel implements Serializable{
+public class Article extends PageModel implements Serializable {
     private static final long serialVersionUID = 1L;
     private String title;       //文章标题
     private String categoryId;  //文章所属类别Id
@@ -25,13 +25,13 @@ public class Article extends PageModel implements Serializable{
     @Override
     public void clean() {
         super.clean();
-        title=null;
-        categoryId=null;
-        content=null;
-        keywords=null;
-        createtime=null;
-        hit=null;
-        image=null;
+        title = null;
+        categoryId = null;
+        content = null;
+        keywords = null;
+        createtime = null;
+        hit = null;
+        image = null;
         description = null;
         status = null;
         catename = null;

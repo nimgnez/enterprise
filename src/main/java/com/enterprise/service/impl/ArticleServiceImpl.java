@@ -12,10 +12,10 @@ import javax.annotation.Resource;
  * Created by Cesiumai on 2016/6/14.
  */
 @Service("articleService")
-public class ArticleServiceImpl extends ServersManage<Article,ArticleDao> implements ArticleService {
+public class ArticleServiceImpl extends ServersManage<Article, ArticleDao> implements ArticleService {
 
     @Override
-    @Resource(name="articleDao")
+    @Resource(name = "articleDao")
     public void setDao(ArticleDao dao) {
         this.dao = dao;
     }

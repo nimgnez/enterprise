@@ -10,9 +10,9 @@
 <%@ include file="/manage/system/pageBase.jsp" %>
 <%@ page info="文章列表" %>
 <%
-    Map<String,String> statuss = new LinkedHashMap<String,String>();
-    statuss.put("y","显示");
-    statuss.put("n","不显示");
+    Map<String, String> statuss = new LinkedHashMap<String, String>();
+    statuss.put("y", "显示");
+    statuss.put("n", "不显示");
 %>
 <form action="<%=path %>/manage/service" name="form" id="form" method="post">
     <div style="height:auto!important;height:550px;min-height:550px;">
@@ -39,7 +39,8 @@
                 <td style="text-align: left;">
                     <select name="status">
                         <c:forEach var="entry" items="<%=statuss %>">
-                            <option value="${entry.key}" <c:if test="${e.status eq entry.key}">selected="selected" </c:if>>${entry.value}</option>
+                            <option value="${entry.key}"
+                                    <c:if test="${e.status eq entry.key}">selected="selected" </c:if>>${entry.value}</option>
                         </c:forEach>
                     </select>
                 </td>
@@ -47,7 +48,7 @@
             <tr>
                 <th style="text-align: right;">排序</th>
                 <td style="text-align: left;">
-                    <input type="text"  value="${e.orders}" name="orders"
+                    <input type="text" value="${e.orders}" name="orders"
                            data-rule="排序:required;orders;integer[+];"
                            id="orders"/>
                 </td>
@@ -94,9 +95,9 @@
 
         });
         var editor = K.editor({
-            allowFileManager : true,
+            allowFileManager: true,
             uploadJson: '<%=path%>/resource/kindeditor/jsp/upload_json.jsp',
-            fileManagerJson : '<%=path%>/resource/kindeditor/jsp/file_manager_json.jsp'
+            fileManagerJson: '<%=path%>/resource/kindeditor/jsp/file_manager_json.jsp'
         });
 
         K('input[name=getHtml]').click(function (e) {
@@ -129,6 +130,7 @@
         });
 
     });
+
     function commit(obj) {
         content.sync();
         var _form = $("form");

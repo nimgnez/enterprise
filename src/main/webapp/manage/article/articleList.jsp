@@ -27,8 +27,9 @@
             <div style="float: right">
                 <select id="categoryId" name="categoryId">
                     <option value="">未选择</option>
-                    <c:forEach var="item" items="<%=SystemManage.getInstance().getArticleCategory()%>">
-                        <option value="${item.id}" <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
+                    <c:forEach var="item" items="<%=SystemManage.getInstance().getProductCategory()%>">
+                        <option value="${item.id}"
+                                <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
                     </c:forEach>
                 </select>
                 <input type="text" value="${e.title}" class="input-medium search-query" name="title" placeholder="标题"/>
@@ -74,6 +75,7 @@
             }
         });
     });
+
     function submitIDs(obj, tip) {
         if ($("input:checked").size() == 0) {
             alert("请先选择要操作的内容！");
@@ -88,6 +90,7 @@
         }
         return false;
     }
+
     //查询
     function selectList(obj) {
 

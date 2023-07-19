@@ -2,13 +2,14 @@
  * Themes, rules, and i18n support
  * Locale: English
  *********************************/
-(function(factory) {
-    'function' === typeof define && (define.amd || define.cmd) ? define(function(require, exports, module){
-        var $ = require('jquery')||jQuery; $._VALIDATOR_URI = module.uri;
+(function (factory) {
+    'function' === typeof define && (define.amd || define.cmd) ? define(function (require, exports, module) {
+        var $ = require('jquery') || jQuery;
+        $._VALIDATOR_URI = module.uri;
         require('../jquery.validator.min')($);
         factory($);
     }) : factory(jQuery);
-}(function($) {
+}(function ($) {
 
     /* Global configuration
      */
@@ -21,20 +22,26 @@
         // Custom rules
         rules: {
             digits: [/^\d+$/, "Please enter only digits."]
-            ,letters: [/^[a-z]+$/i, "Please enter only letters."]
-            ,date: [/^\d{4}-\d{2}-\d{2}$/, "Please enter a valid date, format: yyyy-mm-dd"]
-            ,time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "Please enter a valid time, between 00:00 and 23:59"]
-            ,email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "Please enter a valid email address."]
-            ,url: [/^(https?|s?ftp):\/\/\S+$/i, "Please enter a valid URL."]
-            ,accept: function (element, params){
+            ,
+            letters: [/^[a-z]+$/i, "Please enter only letters."]
+            ,
+            date: [/^\d{4}-\d{2}-\d{2}$/, "Please enter a valid date, format: yyyy-mm-dd"]
+            ,
+            time: [/^([01]\d|2[0-3])(:[0-5]\d){1,2}$/, "Please enter a valid time, between 00:00 and 23:59"]
+            ,
+            email: [/^[\w\+\-]+(\.[\w\+\-]+)*@[a-z\d\-]+(\.[a-z\d\-]+)*\.([a-z]{2,4})$/i, "Please enter a valid email address."]
+            ,
+            url: [/^(https?|s?ftp):\/\/\S+$/i, "Please enter a valid URL."]
+            ,
+            accept: function (element, params) {
                 if (!params) return true;
                 var ext = params[0],
                     value = $(element).val();
                 return (ext === '*') ||
-                       (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
-                       this.renderMsg("Only accept {1} file extension.", ext.replace(/\|/g, ', '));
+                    (new RegExp(".(?:" + ext + ")$", "i")).test(value) ||
+                    this.renderMsg("Only accept {1} file extension.", ext.replace(/\|/g, ', '));
             }
-            
+
         },
 
         // Default error messages
@@ -114,7 +121,7 @@
             formClass: 'n-yellow',
             msgClass: 'n-right',
             msgArrow: TPL_ARROW,
-            msgShow: function($msgbox, type){
+            msgShow: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 if ($el.is(':animated')) return;
                 if (type === 'error') {
@@ -127,10 +134,10 @@
                     $el.css({left: 0, opacity: 1}).fadeIn(200);
                 }
             },
-            msgHide: function($msgbox, type){
+            msgHide: function ($msgbox, type) {
                 var $el = $msgbox.children();
                 $el.stop().delay(100).show()
-                    .animate({left: '20px', opacity: 0}, 300, function(){
+                    .animate({left: '20px', opacity: 0}, 300, function () {
                         $msgbox.hide();
                     });
             }

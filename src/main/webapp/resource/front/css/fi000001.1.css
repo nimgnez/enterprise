@@ -1,18 +1,20 @@
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 400;
-  src: url("TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYQ.eot"/*tpa=https://fonts.gstatic.com/s/oswald/v41/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYQ.eot*/);
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 400;
+    src: url("TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYQ.eot" /*tpa=https://fonts.gstatic.com/s/oswald/v41/TK3_WkUHHAIjg75cFRf3bXL8LICs1_FvsUZiYQ.eot*/);
 }
+
 @font-face {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
-  src: url("KFOmCnqEu92Fr1Mu4mxO.eot"/*tpa=https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxO.eot*/);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    src: url("KFOmCnqEu92Fr1Mu4mxO.eot" /*tpa=https://fonts.gstatic.com/s/roboto/v29/KFOmCnqEu92Fr1Mu4mxO.eot*/);
 }
+
 @font-face {
-  font-family: 'Roboto Slab';
-  font-style: normal;
-  font-weight: 400;
-  src: url("BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rn.eot"/*tpa=https://fonts.gstatic.com/s/robotoslab/v22/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rn.eot*/);
+    font-family: 'Roboto Slab';
+    font-style: normal;
+    font-weight: 400;
+    src: url("BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rn.eot" /*tpa=https://fonts.gstatic.com/s/robotoslab/v22/BngbUXZYTXPIvIBgJJSb6s3BzlRRfKOFbvjojISmb2Rn.eot*/);
 }

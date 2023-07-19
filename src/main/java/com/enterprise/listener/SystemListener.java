@@ -8,12 +8,13 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.enterprise.cache.FrontCache;
 import com.enterprise.core.SystemManage;
+
 /**
  * 系统配置加载监听器
- * @author Administrator
  *
+ * @author Administrator
  */
-public class SystemListener implements ServletContextListener{
+public class SystemListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent arg0) {
 
@@ -21,12 +22,12 @@ public class SystemListener implements ServletContextListener{
 
     @Override
     public void contextInitialized(ServletContextEvent arg0) {
-        try{
+        try {
             SystemManage.getInstance();
             WebApplicationContext app = WebApplicationContextUtils.getWebApplicationContext(arg0.getServletContext());
             FrontCache frontCache = (FrontCache) app.getBean("frontCache");
             frontCache.loadAllCache();
-        }catch( Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
             try {
                 throw new Exception("系统初始化失败");

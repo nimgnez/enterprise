@@ -23,51 +23,51 @@ public class ArticleDaoImpl implements ArticleDao {
 
     @Override
     public int insert(Article article) {
-        return dao.insert("article.insert",article);
+        return dao.insert("article.insert", article);
     }
 
     @Override
     public int delete(Article article) {
-        return dao.delete("article.delete",article);
+        return dao.delete("article.delete", article);
     }
 
     @Override
     public int update(Article article) {
-        return dao.update("article.update",article);
+        return dao.update("article.update", article);
     }
 
     @Override
     public Article selectOne(Article article) {
-        return (Article) dao.selectOne("article.selectOne",article);
+        return (Article) dao.selectOne("article.selectOne", article);
     }
 
     @Override
     public PageModel selectPageList(Article article) {
-        return dao.selectPageList("article.selectPageList","article.selectPageCount",article);
+        return dao.selectPageList("article.selectPageList", "article.selectPageCount", article);
     }
 
     @Override
     public List<Article> selectList(Article article) {
-        return dao.selectList("article.selectList",article);
+        return dao.selectList("article.selectList", article);
     }
 
     @Override
     public int deleteById(int id) {
-        return dao.delete("article.deleteById",id);
+        return dao.delete("article.deleteById", id);
     }
 
     @Override
     public Article selectById(int id) {
-        return (Article) dao.selectOne("article.selectById",id);
+        return (Article) dao.selectOne("article.selectById", id);
     }
 
     @Override
     public Article selectPrevious(int id) {
-        return (Article) dao.selectOne("article.selectPrevious",id);
+        return (Article) dao.selectOne("article.selectPrevious", id);
     }
 
     @Override
     public Article selectNext(int id) {
-        return (Article) dao.selectOne("article.selectNext",id);
+        return (Article) dao.selectOne("article.selectNext", id);
     }
 }

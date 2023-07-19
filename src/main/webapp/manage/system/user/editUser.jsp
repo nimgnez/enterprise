@@ -138,8 +138,8 @@
                 <td style="text-align: left;">
                     <c:choose>
                         <c:when test="${empty e.username}">
-                            <input type="text" name="username" id="username"  size="40"
-                                   data-rule="帐号:required;username;length[4~20];remote[unique,id]" >
+                            <input type="text" name="username" id="username" size="40"
+                                   data-rule="帐号:required;username;length[4~20];remote[unique,id]">
                         </c:when>
                         <c:otherwise>
                             <strong>${e.username}</strong>
@@ -150,14 +150,14 @@
             <tr>
                 <th style="text-align: right;">管理员名称：</th>
                 <td style="text-align: left;">
-                    <input type="text" name="nickname" value="${e.nickname}" id="nickname"  size="40"
+                    <input type="text" name="nickname" value="${e.nickname}" id="nickname" size="40"
                            data-rule="管理员名称:required;nickname;length[2~20];remote[unique, id]"/>
                 </td>
             </tr>
             <tr>
                 <th style="text-align: right;">电子邮箱：</th>
                 <td style="text-align: left;">
-                    <input type="text" name="email" data-rule="电子邮箱:required;email"  size="40" id="email"
+                    <input type="text" name="email" data-rule="电子邮箱:required;email" size="40" id="email"
                            value="${e.email}"/>
                 </td>
             </tr>
@@ -177,7 +177,7 @@
                 <c:choose>
                 <c:when test="${!empty e.username}">
                     <th style="text-align: right;">新密码：</th>
-                    <td style="text-align: left;"><input type="password" name="newpassword"  size="40"
+                    <td style="text-align: left;"><input type="password" name="newpassword" size="40"
                                                          data-rule="密码:password;length[6~20];"
                                                          id="newpassword"/>
 
@@ -186,7 +186,7 @@
                 </c:when>
                 <c:otherwise>
                 <th style="text-align: right;">密码：</th>
-                <td style="text-align: left;"><input type="password" name="password"  size="40"
+                <td style="text-align: left;"><input type="password" name="password" size="40"
                                                      data-rule="密码:required;password;length[6~20];"
                                                      id="password"/>
                     </c:otherwise>
@@ -196,7 +196,7 @@
 
             <tr>
                 <th style="text-align: right;">确认密码：</th>
-                <td style="text-align: left;"><input type="password" name="newpassword2"  size="40"
+                <td style="text-align: left;"><input type="password" name="newpassword2" size="40"
                                                      data-rule="确认密码:match(password)"
                                                      id="newpassword2"/>
                 </td>
@@ -264,19 +264,21 @@
             $("#sub").prop('disabled', true);
             $('#myModal').modal({backdrop: 'static', keyboard: false});
         }
+
         var api = null;
+
         function readURL(input) {
             "use strict";
             var jcrop_api,
-                    boundx,
-                    boundy,
+                boundx,
+                boundy,
 
-                    $preview = $('#preview-pane'),
-                    $pcnt = $('#preview-pane .preview-container'),
-                    $pimg = $('#preview-pane .preview-container img'),
+                $preview = $('#preview-pane'),
+                $pcnt = $('#preview-pane .preview-container'),
+                $pimg = $('#preview-pane .preview-container img'),
 
-                    xsize = $pcnt.width(),
-                    ysize = $pcnt.height();
+                xsize = $pcnt.width(),
+                ysize = $pcnt.height();
 
             if (input.files && input.files[0]) {
                 $("#sub").removeAttr("disabled");
@@ -290,7 +292,7 @@
                     $('#target').attr('src', _src);
 
 
-                    $("#target").load(function(){
+                    $("#target").load(function () {
                         if (api != undefined) {
                             api.destroy();
 
@@ -319,6 +321,7 @@
                 };
 
             }
+
             function updatePreview(c) {
                 if (parseInt(c.w) > 0) {
                     var rx = xsize / c.w;
@@ -337,6 +340,7 @@
             }
         }
         ;
+
         function destroyApi() {
             if (api != undefined) {
                 $('#target').removeAttr('src');

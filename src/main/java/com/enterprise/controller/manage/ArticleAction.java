@@ -14,17 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/manage/article/")
-public class ArticleAction extends BaseController<Article>{
+public class ArticleAction extends BaseController<Article> {
     private static final String page_toList = "/manage/article/articleList";
     private static final String page_toEdit = "/manage/article/articleEdit";
     private static final String page_toAdd = "/manage/article/articleEdit";
     @Autowired
     private ArticleService articleService;
+
     @Override
     public Services<Article> getService() {
         return articleService;
     }
-    private ArticleAction(){
+
+    private ArticleAction() {
         super.page_toList = page_toList;
         super.page_toEdit = page_toEdit;
         super.page_toAdd = page_toAdd;

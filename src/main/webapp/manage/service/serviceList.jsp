@@ -69,6 +69,7 @@
             }
         });
     });
+
     function submitIDs(obj, tip) {
         if ($("input:checked").size() == 0) {
             alert("请先选择要操作的内容！");
@@ -83,6 +84,7 @@
         }
         return false;
     }
+
     //查询
     function selectList(obj) {
 

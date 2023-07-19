@@ -19,21 +19,22 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/manage/about")
-public class AboutAction extends BaseController<About>{
-    private static final String page_toEdit="/manage/about/aboutEdit";
-    private static final String page_toList="/manage/about/aboutEdit";
+public class AboutAction extends BaseController<About> {
+    private static final String page_toEdit = "/manage/about/aboutEdit";
+    private static final String page_toList = "/manage/about/aboutEdit";
     @Autowired
     private AboutService aboutService;
     @Autowired
     private FrontCache frontCache;
+
     @Override
     public Services<About> getService() {
         return aboutService;
     }
 
     public AboutAction() {
-        super.page_toEdit=page_toEdit;
-        super.page_toList=page_toList;
+        super.page_toEdit = page_toEdit;
+        super.page_toList = page_toList;
     }
 
 
@@ -43,6 +44,7 @@ public class AboutAction extends BaseController<About>{
         request.setAttribute("e", about);
         return page_toList;
     }
+
     @Override
     public String update(HttpServletRequest request, @ModelAttribute("e") About e, RedirectAttributes flushAttrs) throws Exception {
         getService().update(e);
@@ -56,7 +58,7 @@ public class AboutAction extends BaseController<About>{
     public String insert(HttpServletRequest request, @ModelAttribute("e") About e, RedirectAttributes flushAttrs) throws Exception {
         getService().insert(e);
         insertAfter(e);
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         frontCache.loadAbout();
         return "redirect:selectList";
     }

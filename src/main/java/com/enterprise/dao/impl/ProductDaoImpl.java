@@ -23,42 +23,42 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public int insert(Product product) {
-        return dao.insert("product.insert",product);
+        return dao.insert("product.insert", product);
     }
 
     @Override
     public int delete(Product product) {
-        return dao.delete("product.delete",product);
+        return dao.delete("product.delete", product);
     }
 
     @Override
     public int update(Product product) {
-        return dao.update("product.update",product);
+        return dao.update("product.update", product);
     }
 
     @Override
     public Product selectOne(Product product) {
-        return (Product) dao.selectOne("product.selectOne",product);
+        return (Product) dao.selectOne("product.selectOne", product);
     }
 
     @Override
     public PageModel selectPageList(Product product) {
-        return dao.selectPageList("product.selectPageList","product.selectPageCount",product);
+        return dao.selectPageList("product.selectPageList", "product.selectPageCount", product);
     }
 
     @Override
     public List<Product> selectList(Product product) {
-        return dao.selectList("product.selectList",product);
+        return dao.selectList("product.selectList", product);
     }
 
     @Override
     public int deleteById(int id) {
-        return dao.delete("product.deleteById",id);
+        return dao.delete("product.deleteById", id);
     }
 
     @Override
     public Product selectById(int id) {
-        return (Product) dao.selectOne("product.selectById",id);
+        return (Product) dao.selectOne("product.selectById", id);
     }
 
 

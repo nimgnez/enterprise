@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ServiceAction {
     /**
      * 跳转到“服务领域”
+     *
      * @return
      * @throws Exception
      */
@@ -24,8 +25,9 @@ public class ServiceAction {
     public String service() throws Exception {
         return "/front/service/serviceList";
     }
+
     @RequestMapping("service/{id}")
-    public String selectOne(HttpServletRequest request, @ModelAttribute("id")@PathVariable("id") String id, @ModelAttribute("e") Service service) throws Exception {
+    public String selectOne(HttpServletRequest request, @ModelAttribute("id") @PathVariable("id") String id, @ModelAttribute("e") Service service) throws Exception {
         request.setAttribute("id", id);
         return "/front/service/serviceList";
     }

@@ -91,6 +91,7 @@
         });
 
     });
+
     function commit(obj) {
         content.sync();
         var _form = $("form");

@@ -15,17 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 @RequestMapping("/manage/product/")
-public class ProductAction extends BaseController<Product>{
+public class ProductAction extends BaseController<Product> {
     private static final String page_toList = "/manage/product/productList";
     private static final String page_toEdit = "/manage/product/productEdit";
     private static final String page_toAdd = "/manage/product/productEdit";
     @Autowired
     private ProductService productService;
+
     @Override
     public Services<Product> getService() {
         return productService;
     }
-    private ProductAction(){
+
+    private ProductAction() {
         super.page_toList = page_toList;
         super.page_toEdit = page_toEdit;
         super.page_toAdd = page_toAdd;

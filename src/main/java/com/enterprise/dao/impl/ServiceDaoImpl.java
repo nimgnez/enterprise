@@ -23,41 +23,41 @@ public class ServiceDaoImpl implements ServiceDao {
 
     @Override
     public int insert(Service service) {
-        return dao.insert("service.insert",service);
+        return dao.insert("service.insert", service);
     }
 
     @Override
     public int delete(Service service) {
-        return dao.delete("service.delete",service);
+        return dao.delete("service.delete", service);
     }
 
     @Override
     public int update(Service service) {
-        return dao.update("service.update",service);
+        return dao.update("service.update", service);
     }
 
     @Override
     public Service selectOne(Service service) {
-        return (Service) dao.selectOne("service.selectOne",service);
+        return (Service) dao.selectOne("service.selectOne", service);
     }
 
     @Override
     public PageModel selectPageList(Service service) {
-        return dao.selectPageList("service.selectPageList","service.selectPageCount",service);
+        return dao.selectPageList("service.selectPageList", "service.selectPageCount", service);
     }
 
     @Override
     public List<Service> selectList(Service service) {
-        return dao.selectList("service.selectList",service);
+        return dao.selectList("service.selectList", service);
     }
 
     @Override
     public int deleteById(int id) {
-        return dao.delete("service.deleteById",id);
+        return dao.delete("service.deleteById", id);
     }
 
     @Override
     public Service selectById(int id) {
-        return (Service) dao.selectOne("service.selectById",id);
+        return (Service) dao.selectOne("service.selectById", id);
     }
 }

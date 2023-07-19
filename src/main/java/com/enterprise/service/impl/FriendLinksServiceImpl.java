@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 import com.enterprise.dao.ServersManage;
 import com.enterprise.service.FriendLinksService;
 import com.enterprise.dao.FriendLinksDao;
+
 @Service("friendLinksService")
-public class FriendLinksServiceImpl extends ServersManage<FriendLinks, FriendLinksDao> implements FriendLinksService{
+public class FriendLinksServiceImpl extends ServersManage<FriendLinks, FriendLinksDao> implements FriendLinksService {
 
-	@Resource(name="friendLinksDao")
-	@Override
-	public void setDao(FriendLinksDao dao) {
-		this.dao = dao;
-	}
-
+    @Resource(name = "friendLinksDao")
+    @Override
+    public void setDao(FriendLinksDao dao) {
+        this.dao = dao;
+    }
 
 
 }

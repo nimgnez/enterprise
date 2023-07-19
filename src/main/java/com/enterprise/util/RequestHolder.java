@@ -9,19 +9,22 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.context.request.ServletWebRequest;
 
 public class RequestHolder {
-	public static HttpServletRequest getRequest(){
-		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-		return request;
-	}
-	public static HttpServletResponse getResponse(){
-		HttpServletResponse response = ((ServletWebRequest) RequestContextHolder.getRequestAttributes()).getResponse();
-		return response;
-	}
-	public static HttpSession getSession(){
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(true);
-	}
-	public static HttpSession getSession(boolean create){
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(create);
-	}
+    public static HttpServletRequest getRequest() {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        return request;
+    }
+
+    public static HttpServletResponse getResponse() {
+        HttpServletResponse response = ((ServletWebRequest) RequestContextHolder.getRequestAttributes()).getResponse();
+        return response;
+    }
+
+    public static HttpSession getSession() {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(true);
+    }
+
+    public static HttpSession getSession(boolean create) {
+        return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest().getSession(create);
+    }
 
 }

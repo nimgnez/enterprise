@@ -19,21 +19,22 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("/manage/contact")
-public class ContactAction extends BaseController<Contact>{
-    private static final String page_toEdit="/manage/contact/contactEdit";
-    private static final String page_toList="/manage/contact/contactEdit";
+public class ContactAction extends BaseController<Contact> {
+    private static final String page_toEdit = "/manage/contact/contactEdit";
+    private static final String page_toList = "/manage/contact/contactEdit";
     @Autowired
     private ContactService contactService;
     @Autowired
     private FrontCache frontCache;
+
     @Override
     public Services<Contact> getService() {
         return contactService;
     }
 
     public ContactAction() {
-        super.page_toEdit=page_toEdit;
-        super.page_toList=page_toList;
+        super.page_toEdit = page_toEdit;
+        super.page_toList = page_toList;
     }
 
     @Override
@@ -56,7 +57,7 @@ public class ContactAction extends BaseController<Contact>{
     public String insert(HttpServletRequest request, @ModelAttribute("e") Contact e, RedirectAttributes flushAttrs) throws Exception {
         getService().insert(e);
         insertAfter(e);
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         frontCache.loadContact();
         return "redirect:selectList";
     }

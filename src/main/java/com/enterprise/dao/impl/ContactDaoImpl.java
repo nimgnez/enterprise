@@ -13,7 +13,7 @@ import java.util.List;
  * Created by Cesiumai on 2016/7/8.
  */
 @Repository("contactDao")
-public class ContactDaoImpl implements ContactDao{
+public class ContactDaoImpl implements ContactDao {
     @Resource
     private BaseDao dao;
 
@@ -23,7 +23,7 @@ public class ContactDaoImpl implements ContactDao{
 
     @Override
     public int insert(Contact contact) {
-        return dao.insert("contact.insert",contact);
+        return dao.insert("contact.insert", contact);
     }
 
     @Override
@@ -33,31 +33,31 @@ public class ContactDaoImpl implements ContactDao{
 
     @Override
     public int update(Contact contact) {
-        return dao.delete("contact.update",contact);
+        return dao.delete("contact.update", contact);
     }
 
     @Override
     public Contact selectOne(Contact contact) {
-        return (Contact) dao.selectOne("contact.selectOne",contact);
+        return (Contact) dao.selectOne("contact.selectOne", contact);
     }
 
     @Override
     public PageModel selectPageList(Contact contact) {
-        return dao.selectPageList("contact.selectPageList","contact.selectPageCount",contact);
+        return dao.selectPageList("contact.selectPageList", "contact.selectPageCount", contact);
     }
 
     @Override
     public List<Contact> selectList(Contact contact) {
-        return dao.selectList("contact.selectList",contact);
+        return dao.selectList("contact.selectList", contact);
     }
 
     @Override
     public int deleteById(int id) {
-        return dao.delete("contact.deleteById",id);
+        return dao.delete("contact.deleteById", id);
     }
 
     @Override
     public Contact selectById(int id) {
-        return (Contact) dao.selectOne("contact.selectById",id);
+        return (Contact) dao.selectOne("contact.selectById", id);
     }
 }

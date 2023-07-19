@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class RecruitmentAction {
     /**
      * 跳转到“招聘”页面
+     *
      * @return
      * @throws Exception
      */

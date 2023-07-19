@@ -10,9 +10,9 @@
 <%@ include file="/manage/system/pageBase.jsp" %>
 <%@ page info="产品列表" %>
 <%
-    Map<String,String> statuss = new LinkedHashMap<String,String>();
-    statuss.put("y","显示");
-    statuss.put("n","不显示");
+    Map<String, String> statuss = new LinkedHashMap<String, String>();
+    statuss.put("0", "不上线");
+    statuss.put("1", "上线");
 %>
 <form action="<%=path %>/manage/product" name="form" id="form" method="post">
     <div style="height:auto!important;height:550px;min-height:550px;">
@@ -26,12 +26,21 @@
                 <td>id</td>
                 <td><input type="hidden" value="${e.id}" name="id" label="id"/></td>
             </tr>
+
+
+
             <tr>
                 <th style="text-align: right;">产品分类</th>
-                <td style="text-align: left;"><input type="text" size="40" value="${e.category}" name="category"
-                                                     data-rule="产品型号:required;category;length[1~45];"
-                                                     id="category"/></td>
+                <td style="text-align: left;">
+                    <select id="categoryId" name="categoryId">
+                        <c:forEach var="item" items="<%=SystemManage.getInstance().getProductCategory()%>">
+                            <option value="${item.id}"
+                                    <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
+                        </c:forEach>
+                    </select>
+                </td>
             </tr>
+
             <tr>
                 <th style="text-align: right;">产品型号</th>
                 <td style="text-align: left;"><input type="text" size="40" value="${e.modelNo}" name="modelNo"
@@ -41,8 +50,8 @@
             <tr>
                 <th style="text-align: right;">产品标题</th>
                 <td style="text-align: left;"><input type="text" size="40" value="${e.title}" name="title"
-                                                    data-rule="产品型号:required;title;length[1~45];"
-                                                    id="title"/></td>
+                                                     data-rule="产品型号:required;title;length[1~45];"
+                                                     id="title"/></td>
             </tr>
             <tr>
                 <th style="text-align: right;">产品外型尺寸</th>
@@ -77,8 +86,21 @@
 
             <tr>
                 <th style="text-align: right;">产品兴趣链接</th>
-                <td style="text-align: left;"><input type="text" size="80" value="${e.interestetLink}" name="interestetLink"
+                <td style="text-align: left;"><input type="text" size="80" value="${e.interestetLink}"
+                                                     name="interestetLink"
                                                      id="interestetLink"/></td>
+            </tr>
+
+            <tr>
+                <th style="text-align: right;">是否上线</th>
+                <td style="text-align: left;">
+                    <select name="status">
+                        <c:forEach var="entry" items="<%=statuss %>">
+                            <option value="${entry.key}"
+                                    <c:if test="${e.status eq entry.key}">selected="selected" </c:if>>${entry.value}</option>
+                        </c:forEach>
+                    </select>
+                </td>
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center;">
@@ -105,17 +127,17 @@
 <script type="text/javascript">
 
 
-        K('input[name=imageFile]').click(function() {
-            editor.loadPlugin('image', function() {
-                editor.plugin.imageDialog({
-                    imageUrl : K('#image').val(),
-                    clickFn : function(url) {
-                        K('#image').val(url);
-                        editor.hideDialog();
-                    }
-                });
+    K('input[name=imageFile]').click(function () {
+        editor.loadPlugin('image', function () {
+            editor.plugin.imageDialog({
+                imageUrl: K('#image').val(),
+                clickFn: function (url) {
+                    K('#image').val(url);
+                    editor.hideDialog();
+                }
             });
         });
+    });
 
     function commit(obj) {
         var _form = $("form");

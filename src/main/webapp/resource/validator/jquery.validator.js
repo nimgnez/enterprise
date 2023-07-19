@@ -3,16 +3,16 @@
  * https://github.com/niceue/nice-validator
  */
 /*jshint evil:true*/
-;(function(factory) {
-    if ( 'function' === typeof define && (define.amd || define.cmd) ) {
+;(function (factory) {
+    if ('function' === typeof define && (define.amd || define.cmd)) {
         // Register as an anonymous module.
-        define([], function(){
+        define([], function () {
             return factory;
         });
     } else {
         factory(jQuery);
     }
-}(function($, undefined) {
+}(function ($, undefined) {
     "use strict";
 
     var NS = 'validator',
@@ -47,14 +47,14 @@
         proxy = $.proxy,
         trim = $.trim,
         isFunction = $.isFunction,
-        isString = function(s) {
+        isString = function (s) {
             return typeof s === 'string';
         },
-        isObject = function(o) {
+        isObject = function (o) {
             return o && Object.prototype.toString.call(o) === '[object Object]';
         },
         isIE = document.documentMode || +(navigator.userAgent.match(/MSIE (\d+)/) && RegExp.$1),
-        attr = function(el, key, value) {
+        attr = function (el, key, value) {
             if (!el || !el.tagName) return null;
             if (value !== undefined) {
                 if (value === null) el.removeAttribute(key);
@@ -63,7 +63,7 @@
                 return el.getAttribute(key);
             }
         },
-        elementValue = function(element) {
+        elementValue = function (element) {
             return $(element).val();
         },
         debug = window.console || {
@@ -93,12 +93,12 @@
             beforeSubmit: noop,
 
             msgWrapper: 'span',
-            msgMaker: function(opt) {
+            msgMaker: function (opt) {
                 var html;
-                html = '<span role="alert" class="msg-wrap n-'+ opt.type + '">' + opt.arrow;
+                html = '<span role="alert" class="msg-wrap n-' + opt.type + '">' + opt.arrow;
                 if (opt.result) {
-                    $.each(opt.result, function(i, obj){
-                        html += '<span class="n-'+ obj.type +'">' + opt.icon + '<span class="n-msg">' + obj.msg + '</span></span>';
+                    $.each(opt.result, function (i, obj) {
+                        html += '<span class="n-' + obj.type + '">' + opt.icon + '<span class="n-msg">' + obj.msg + '</span></span>';
                     });
                 } else {
                     html += opt.icon + '<span class="n-msg">' + opt.msg + '</span>';
@@ -125,58 +125,58 @@
 
     /** jQuery Plugin
      * @param {Object} options
-        debug         {Boolean}     0               Whether to enable debug mode
-        timely        {Number}      1               Whether to enable timely validation
-        theme         {String}     'default'        Theme name
-        stopOnError   {Boolean}     false           Whether to stop validate when found an error input
-        focusCleanup  {Boolean}     false           Whether to clean up the field message when focus the field
-        focusInvalid  {Boolean}     true            Whether to focus the field that is invalid
-        ignoreBlank   {Boolean}     false           When the field has no value, whether to ignore validation
-        ignore        {jqSelector}    ''            Ignored fields (Using jQuery selector)
+     debug         {Boolean}     0               Whether to enable debug mode
+     timely        {Number}      1               Whether to enable timely validation
+     theme         {String}     'default'        Theme name
+     stopOnError   {Boolean}     false           Whether to stop validate when found an error input
+     focusCleanup  {Boolean}     false           Whether to clean up the field message when focus the field
+     focusInvalid  {Boolean}     true            Whether to focus the field that is invalid
+     ignoreBlank   {Boolean}     false           When the field has no value, whether to ignore validation
+     ignore        {jqSelector}    ''            Ignored fields (Using jQuery selector)
 
-        beforeSubmit  {Function}                    Do something before submit form
-        dataFilter    {Function}                    Convert ajax results
-        valid         {Function}                    Triggered when the form is valid
-        invalid       {Function}                    Triggered when the form is invalid
-        validClass    {String}      'n-valid'       Add this class name to a valid field
-        invalidClass  {String}      'n-invalid'     Add this class name to a invalid field
-        bindClassTo   {jqSelector}  ':input'        Which element should the className binding to
+     beforeSubmit  {Function}                    Do something before submit form
+     dataFilter    {Function}                    Convert ajax results
+     valid         {Function}                    Triggered when the form is valid
+     invalid       {Function}                    Triggered when the form is invalid
+     validClass    {String}      'n-valid'       Add this class name to a valid field
+     invalidClass  {String}      'n-invalid'     Add this class name to a invalid field
+     bindClassTo   {jqSelector}  ':input'        Which element should the className binding to
 
-        display       {Function}                    Callback function to get dynamic display
-        target        {Function}                    Callback function to get dynamic target
-        msgShow       {Function}                    Trigger this callback when show message
-        msgHide       {Function}                    Trigger this callback when hide message
-        msgWrapper    {String}      'span'          Message wrapper tag name
-        msgMaker      {Function}                    Callback function to make message HTML
-        msgArrow      {String}                      Message arrow template
-        msgIcon       {String}                      Message icon template
-        msgStyle      {String}                      Custom message css style
-        msgClass      {String}                      Additional added to the message class names
-        formClass     {String}                      Additional added to the form class names
+     display       {Function}                    Callback function to get dynamic display
+     target        {Function}                    Callback function to get dynamic target
+     msgShow       {Function}                    Trigger this callback when show message
+     msgHide       {Function}                    Trigger this callback when hide message
+     msgWrapper    {String}      'span'          Message wrapper tag name
+     msgMaker      {Function}                    Callback function to make message HTML
+     msgArrow      {String}                      Message arrow template
+     msgIcon       {String}                      Message icon template
+     msgStyle      {String}                      Custom message css style
+     msgClass      {String}                      Additional added to the message class names
+     formClass     {String}                      Additional added to the form class names
 
-        messages      {Object}                      Custom messages for the current instance
-        rules         {Object}                      Custom rules for the current instance
-        fields        {Object}                      Field set to be verified
-        {String}        key    name|#id
-        {String|Object} value                       Rule string, or an object is passed more arguments
+     messages      {Object}                      Custom messages for the current instance
+     rules         {Object}                      Custom rules for the current instance
+     fields        {Object}                      Field set to be verified
+     {String}        key    name|#id
+     {String|Object} value                       Rule string, or an object is passed more arguments
 
-        fields[key][rule]       {String}            Rule string
-        fields[key][display]    {String|Function}
-        fields[key][tip]        {String}            Custom friendly message when focus the input
-        fields[key][ok]         {String}            Custom success message
-        fields[key][msg]        {Object}            Custom error message
-        fields[key][msgStyle]   {String}            Custom message style
-        fields[key][msgClass]   {String}            Additional added to the message class names
-        fields[key][msgWrapper] {String}            Message wrapper tag name
-        fields[key][msgMaker]   {Function}          Custom message HTML maker
-        fields[key][dataFilter] {Function}          Conversion ajax results
-        fields[key][valid]      {Function}          Triggered when this field is valid
-        fields[key][invalid]    {Function}          Triggered when this field is invalid
-        fields[key][must]       {Boolean}           If set true, we always check the field even has remote checking
-        fields[key][timely]     {Boolean}           Whether to enable timely validation
-        fields[key][target]     {jqSelector}        Verify the current field, but the message can be displayed on target element
+     fields[key][rule]       {String}            Rule string
+     fields[key][display]    {String|Function}
+     fields[key][tip]        {String}            Custom friendly message when focus the input
+     fields[key][ok]         {String}            Custom success message
+     fields[key][msg]        {Object}            Custom error message
+     fields[key][msgStyle]   {String}            Custom message style
+     fields[key][msgClass]   {String}            Additional added to the message class names
+     fields[key][msgWrapper] {String}            Message wrapper tag name
+     fields[key][msgMaker]   {Function}          Custom message HTML maker
+     fields[key][dataFilter] {Function}          Conversion ajax results
+     fields[key][valid]      {Function}          Triggered when this field is valid
+     fields[key][invalid]    {Function}          Triggered when this field is invalid
+     fields[key][must]       {Boolean}           If set true, we always check the field even has remote checking
+     fields[key][timely]     {Boolean}           Whether to enable timely validation
+     fields[key][target]     {jqSelector}        Verify the current field, but the message can be displayed on target element
      */
-    $.fn[NS] = function(options) {
+    $.fn[NS] = function (options) {
         var that = this,
             args = arguments;
 
@@ -184,15 +184,14 @@
         !that.is('form') && (that = this.find('form'));
         !that.length && (that = this);
 
-        that.each(function() {
+        that.each(function () {
             var cache = $(this).data(NS);
 
             if (cache) {
-                if ( isString(options) ) {
-                    if ( options.charAt(0) === '_' ) return;
+                if (isString(options)) {
+                    if (options.charAt(0) === '_') return;
                     cache[options].apply(cache, Array.prototype.slice.call(args, 1));
-                }
-                else if (options) {
+                } else if (options) {
                     cache._reset(true);
                     cache._init(this, options);
                 }
@@ -206,7 +205,7 @@
 
 
     // Validate a field, or an area
-    $.fn.isValid = function(callback, hideMsg) {
+    $.fn.isValid = function (callback, hideMsg) {
         var me = _getInstance(this[0]),
             hasCallback = isFunction(callback),
             ret, opt;
@@ -217,7 +216,7 @@
 
         ret = me._multiValidate(
             this.is(':input') ? this : this.find(INPUT_SELECTOR),
-            function(isValid){
+            function (isValid) {
                 if (!isValid && opt.focusInvalid && !me.checkOnly) {
                     // navigate to the error element
                     me.$el.find('[' + ARIA_INVALID + ']:first').focus();
@@ -239,17 +238,17 @@
 
 
     // A faster selector than ":input:not(:submit,:button,:reset,:image,:disabled)"
-    $.expr[":"].verifiable = function(elem) {
+    $.expr[":"].verifiable = function (elem) {
         var name = elem.nodeName.toLowerCase();
 
-        return ( name === 'input' && !({submit: 1, button: 1, reset: 1, image: 1})[elem.type] ||
-                 name === 'select' ||
-                 name === 'textarea' ) &&
-               elem.disabled === false;
+        return (name === 'input' && !({submit: 1, button: 1, reset: 1, image: 1})[elem.type] ||
+                name === 'select' ||
+                name === 'textarea') &&
+            elem.disabled === false;
     };
 
     // any value, but not only whitespace
-    $.expr[":"].filled = function(elem) {
+    $.expr[":"].filled = function (elem) {
         return !!trim(elementValue(elem));
     };
 
@@ -264,7 +263,7 @@
     function Validator(element, options) {
         var me = this;
 
-        if ( !(me instanceof Validator) ) {
+        if (!(me instanceof Validator)) {
             return new Validator(element, options);
         }
 
@@ -276,8 +275,7 @@
             } else {
                 init();
             }
-        }
-        else if ( isString(element) ) {
+        } else if (isString(element)) {
             preinitialized[element] = options;
         }
 
@@ -287,20 +285,20 @@
     }
 
     Validator.prototype = {
-        _init: function(element, options) {
+        _init: function (element, options) {
             var me = this,
                 opt, themeOpt, dataOpt;
 
             // Initialization options
-            if ( isFunction(options) ) {
+            if (isFunction(options)) {
                 options = {
                     valid: options
                 };
             }
             options = options || {};
-            dataOpt = attr(element, 'data-'+ NS +'-option');
+            dataOpt = attr(element, 'data-' + NS + '-option');
             dataOpt = dataOpt && dataOpt.charAt(0) === '{' ? (new Function("return " + dataOpt))() : {};
-            themeOpt = themes[ options.theme || dataOpt.theme || defaults.theme ];
+            themeOpt = themes[options.theme || dataOpt.theme || defaults.theme];
             opt = me.options = $.extend({}, defaults, themeOpt, me.options, options, dataOpt);
 
             me.rules = new Rules(opt.rules, true);
@@ -326,24 +324,24 @@
                 hide: opt.msgHide
             };
 
-            if ( isString(opt.target) ) {
+            if (isString(opt.target)) {
                 me.$el.find(opt.target).addClass('msg-container');
             }
 
             // Initialization events and make a cache
-            if ( !me.$el.data(NS) ) {
-                me.$el.data(NS, me).addClass(CLS_WRAPPER +' '+ opt.formClass)
-                      .on('submit'+ CLS_NS +' validate'+ CLS_NS, proxy(me, '_submit'))
-                      .on('reset'+ CLS_NS, proxy(me, '_reset'))
-                      .on('showmsg'+ CLS_NS, proxy(me, '_showmsg'))
-                      .on('hidemsg'+ CLS_NS, proxy(me, '_hidemsg'))
-                      .on('focusin'+ CLS_NS + ' click'+ CLS_NS, INPUT_SELECTOR, proxy(me, '_focusin'))
-                      .on('focusout'+ CLS_NS +' validate'+ CLS_NS, INPUT_SELECTOR, proxy(me, '_focusout'));
+            if (!me.$el.data(NS)) {
+                me.$el.data(NS, me).addClass(CLS_WRAPPER + ' ' + opt.formClass)
+                    .on('submit' + CLS_NS + ' validate' + CLS_NS, proxy(me, '_submit'))
+                    .on('reset' + CLS_NS, proxy(me, '_reset'))
+                    .on('showmsg' + CLS_NS, proxy(me, '_showmsg'))
+                    .on('hidemsg' + CLS_NS, proxy(me, '_hidemsg'))
+                    .on('focusin' + CLS_NS + ' click' + CLS_NS, INPUT_SELECTOR, proxy(me, '_focusin'))
+                    .on('focusout' + CLS_NS + ' validate' + CLS_NS, INPUT_SELECTOR, proxy(me, '_focusout'));
 
-                if ( opt.timely ) {
-                    me.$el.on('keyup'+ CLS_NS +' input'+ CLS_NS + ' compositionstart compositionend', INPUT_SELECTOR, proxy(me, '_focusout'))
-                          .on('click'+ CLS_NS, ':radio,:checkbox', 'click', proxy(me, '_focusout'))
-                          .on('change'+ CLS_NS, 'select,input[type="file"]', 'change', proxy(me, '_focusout'));
+                if (opt.timely) {
+                    me.$el.on('keyup' + CLS_NS + ' input' + CLS_NS + ' compositionstart compositionend', INPUT_SELECTOR, proxy(me, '_focusout'))
+                        .on('click' + CLS_NS, ':radio,:checkbox', 'click', proxy(me, '_focusout'))
+                        .on('change' + CLS_NS, 'select,input[type="file"]', 'change', proxy(me, '_focusout'));
                 }
 
                 // cache the novalidate attribute value
@@ -355,14 +353,14 @@
         },
 
         // Guess whether the form use ajax submit
-        _guessAjax: function(form) {
+        _guessAjax: function (form) {
             var me = this;
 
-            if ( !(me.isAjaxSubmit = !!me.options.valid) ) {
+            if (!(me.isAjaxSubmit = !!me.options.valid)) {
                 // if there is a "valid.form" event
                 var events = ($._data || $.data)(form, "events");
-                if ( events && events.valid &&
-                    $.map(events.valid, function(e){
+                if (events && events.valid &&
+                    $.map(events.valid, function (e) {
                         return ~e.namespace.indexOf('form') ? 1 : null;
                     }).length
                 ) {
@@ -371,17 +369,17 @@
             }
         },
 
-        _initFields: function(fields) {
+        _initFields: function (fields) {
             var me = this,
                 clear = fields === null;
 
             // Processing field information
             if (clear) fields = me.fields;
 
-            if ( isObject(fields) ) {
-                $.each(fields, function(k, v) {
+            if (isObject(fields)) {
+                $.each(fields, function (k, v) {
                     // delete a field from settings
-                    if ( v === null || clear ) {
+                    if (v === null || clear) {
                         var el = me.elements[k];
                         if (el) me._resetElement(el, true);
                         delete me.fields[k];
@@ -394,13 +392,13 @@
             }
 
             // Parsing DOM rules
-            me.$el.find(INPUT_SELECTOR).each(function() {
+            me.$el.find(INPUT_SELECTOR).each(function () {
                 me._parse(this);
             });
         },
 
         // Parsing a field
-        _parse: function(el) {
+        _parse: function (el) {
             var me = this,
                 opt = me.options,
                 field,
@@ -411,10 +409,10 @@
             dataRule && attr(el, DATA_RULE, null);
 
             // If the field has passed the key as id mode, or it doesn't has a name
-            if ( el.id && ('#' + el.id in me.fields) ||
-                 !key ||
-                 // If dataRule and element are diffrent from old's, we use ID mode.
-                 (dataRule !== null && (field = me.fields[key]) && dataRule !== field.rule && field.key !== el.id)
+            if (el.id && ('#' + el.id in me.fields) ||
+                !key ||
+                // If dataRule and element are diffrent from old's, we use ID mode.
+                (dataRule !== null && (field = me.fields[key]) && dataRule !== field.rule && field.key !== el.id)
             ) {
                 key = '#' + el.id;
             }
@@ -427,19 +425,19 @@
             field.rule = dataRule || field.rule || '';
 
             if (!field.display) {
-                if ( !(field.display = attr(el, DATA_DISPLAY)) && opt.display ) {
+                if (!(field.display = attr(el, DATA_DISPLAY)) && opt.display) {
                     field.display = opt.display;
                 }
             }
             if (field.rule) {
-                if ( attr(el, DATA_MUST) !== null || /match\(|checked/.test(field.rule) ) {
+                if (attr(el, DATA_MUST) !== null || /match\(|checked/.test(field.rule)) {
                     field.must = true;
                 }
-                if ( ~field.rule.indexOf('required') ) {
+                if (~field.rule.indexOf('required')) {
                     field.required = true;
                     attr(el, ARIA_REQUIRED, true);
                 }
-                if ( !('showOk' in field) ) {
+                if (!('showOk' in field)) {
                     field.showOk = opt.showOk;
                 }
 
@@ -452,10 +450,10 @@
                 field = me._parseRule(field);
                 field.old = {};
             }
-            if ( isString(field.target) ) {
+            if (isString(field.target)) {
                 attr(el, DATA_TARGET, field.target);
             }
-            if ( isString(field.tip) ) {
+            if (isString(field.tip)) {
                 attr(el, DATA_TIP, field.tip);
             }
 
@@ -463,7 +461,7 @@
         },
 
         // Parsing field rules
-        _parseRule: function(field) {
+        _parseRule: function (field) {
             var arr = rDisplay.exec(field.rule);
 
             if (!arr) return;
@@ -474,7 +472,7 @@
             }
             if (arr[2]) {
                 field.rules = [];
-                arr[2].replace(rRules, function(){
+                arr[2].replace(rRules, function () {
                     var args = arguments;
                     args[4] = args[4] || args[5];
                     field.rules.push({
@@ -483,7 +481,9 @@
                         or: args[6] === "|",
                         method: args[3],
                         params: args[4] ?
-                            $.map( args[4].split(', '), function(i){return trim(i)} ) :
+                            $.map(args[4].split(', '), function (i) {
+                                return trim(i)
+                            }) :
                             undefined
                     });
                 });
@@ -493,7 +493,7 @@
         },
 
         // Verify a zone
-        _multiValidate: function($inputs, doneCallback){
+        _multiValidate: function ($inputs, doneCallback) {
             var me = this,
                 opt = me.options;
 
@@ -502,7 +502,7 @@
                 $inputs = $inputs.not(opt.ignore);
             }
 
-            $inputs.each(function() {
+            $inputs.each(function () {
                 me._validate(this);
                 if (me.hasError && opt.stopOnError) {
                     // stop the validation
@@ -515,8 +515,10 @@
                 me.validating = true;
                 $.when.apply(
                     null,
-                    $.map(me.deferred, function(v){return v;})
-                ).done(function(){
+                    $.map(me.deferred, function (v) {
+                        return v;
+                    })
+                ).done(function () {
                     doneCallback.call(me, !me.hasError);
                     me.validating = false;
                 });
@@ -528,7 +530,7 @@
         },
 
         // Validate the whole form
-        _submit: function(e) {
+        _submit: function (e) {
             var me = this,
                 opt = me.options,
                 form = e.target,
@@ -559,7 +561,7 @@
 
             me._multiValidate(
                 me.$el.find(INPUT_SELECTOR),
-                function(isValid){
+                function (isValid) {
                     var ret = (isValid || opt.debug === 2) ? 'valid' : 'invalid',
                         errors;
 
@@ -568,7 +570,7 @@
                             // navigate to the error element
                             me.$el.find('[' + ARIA_INVALID + ']:first').focus();
                         }
-                        errors = $.map(me.errors, function(err){
+                        errors = $.map(me.errors, function (err) {
                             return err;
                         });
                     }
@@ -598,7 +600,7 @@
                     submitButton.name = "";
                     submit = form.submit;
                     // For asp.NET controls
-                    me.$el.append('<input type="hidden" name="'+ name +'" value="'+ submitButton.value +'">');
+                    me.$el.append('<input type="hidden" name="' + name + '" value="' + submitButton.value + '">');
                     // call native submit
                     submit.call(form);
                 } else {
@@ -607,20 +609,20 @@
             }
         },
 
-        _reset: function(e) {
+        _reset: function (e) {
             var me = this;
 
             me.errors = {};
             if (e) {
                 me.reseting = true;
-                me.$el.find(INPUT_SELECTOR).each( function(i, el){
+                me.$el.find(INPUT_SELECTOR).each(function (i, el) {
                     me._resetElement(el);
                 });
                 delete me.reseting;
             }
         },
 
-        _resetElement: function(el, all) {
+        _resetElement: function (el, all) {
             this._setClass(el, null);
             this.hideMsg(el);
             if (all) {
@@ -628,25 +630,25 @@
             }
         },
 
-        _getTimely: function(el, opt) {
+        _getTimely: function (el, opt) {
             var timely = attr(el, DATA_TIMELY);
             return timely !== null ? +timely : +opt.timely;
         },
 
         // Handle events: "focusin/click"
-        _focusin: function(e) {
+        _focusin: function (e) {
             var me = this,
                 opt = me.options,
                 el = e.target,
                 timely,
                 msg;
 
-            if ( me.validating || ( e.type==='click' && document.activeElement === el ) ) {
+            if (me.validating || (e.type === 'click' && document.activeElement === el)) {
                 return;
             }
 
             if (opt.focusCleanup) {
-                if ( attr(el, ARIA_INVALID) === 'true' ) {
+                if (attr(el, ARIA_INVALID) === 'true') {
                     me._setClass(el, null);
                     me.hideMsg(el);
                 }
@@ -664,14 +666,14 @@
                     me._parse(el);
                 }
                 timely = me._getTimely(el, opt);
-                if ( timely === 8 || timely === 9 ) {
+                if (timely === 8 || timely === 9) {
                     me._focusout(e);
                 }
             }
         },
 
         // Handle events: "focusout/validate/keyup/click/change/input/compositionstart/compositionend"
-        _focusout: function(e, elem) {
+        _focusout: function (e, elem) {
             var me = this,
                 opt = me.options,
                 el = e.target,
@@ -701,7 +703,7 @@
 
             // Just for checkbox and radio
             if (!elem && _checkable(el)) {
-                elem = me.$el.find('input[name="'+ el.name +'"]').get(0);
+                elem = me.$el.find('input[name="' + el.name + '"]').get(0);
             }
             timely = me._getTimely(elem || el, opt);
 
@@ -709,13 +711,13 @@
                 if (!timely) return;
 
                 // not validate field unless fill a value
-                if ( opt.ignoreBlank && !value && !focusin ) {
+                if (opt.ignoreBlank && !value && !focusin) {
                     me.hideMsg(el);
                     return;
                 }
 
-                if ( etype === 'focusout' ) {
-                    if ( timely === 2 || timely === 8 ) {
+                if (etype === 'focusout') {
+                    if (timely === 2 || timely === 8) {
                         if (value) {
                             if (field.isValid && !old.showOk) {
                                 me.hideMsg(el);
@@ -726,22 +728,21 @@
                             return;
                         }
                     }
-                }
-                else {
-                    if ( timely < 2 && !e.data ) {
+                } else {
+                    if (timely < 2 && !e.data) {
                         return;
                     }
 
                     // mark timestamp to reduce the frequency of the received event
                     timestamp = +new Date();
-                    if ( timestamp - (el._ts || 0) < 100 || (etype === 'keyup' && el._et === 'input') ) {
+                    if (timestamp - (el._ts || 0) < 100 || (etype === 'keyup' && el._et === 'input')) {
                         return;
                     }
                     el._ts = timestamp;
                     el._et = etype;
 
                     // handle keyup
-                    if ( etype === 'keyup' ) {
+                    if (etype === 'keyup') {
                         key = e.keyCode;
                         specialKey = {
                             8: 1,  // Backspace
@@ -752,24 +753,24 @@
                         };
 
                         // only gets focus, no validation
-                        if ( key === 9 && !value ) {
+                        if (key === 9 && !value) {
                             return;
                         }
 
                         // do not validate, if triggered by these keys
-                        if ( key < 48 && !specialKey[key] ) {
+                        if (key < 48 && !specialKey[key]) {
                             return;
                         }
                     }
-                    if ( !focusin ) {
+                    if (!focusin) {
                         // keyboard events, reducing the frequency of validation
-                        timer = timely >=100 ? timely : 400;
+                        timer = timely >= 100 ? timely : 400;
                     }
                 }
             }
 
             // if the current field is ignored
-            if ( opt.ignore && $(el).is(opt.ignore) ) {
+            if (opt.ignore && $(el).is(opt.ignore)) {
                 return;
             }
 
@@ -778,7 +779,7 @@
             field.value = value;
             if (timely !== undefined) field.timely = timely;
             if (timer) {
-                field._t = setTimeout(function() {
+                field._t = setTimeout(function () {
                     me._validate(el, field);
                 }, timer);
             } else {
@@ -787,41 +788,40 @@
             }
         },
 
-        _setClass: function(el, isValid) {
+        _setClass: function (el, isValid) {
             var $el = $(el), opt = this.options;
             if (opt.bindClassTo) {
                 $el = $el.closest(opt.bindClassTo);
             }
-            $el.removeClass( opt.invalidClass + ' ' + opt.validClass );
+            $el.removeClass(opt.invalidClass + ' ' + opt.validClass);
             if (isValid !== null) {
-                $el.addClass( isValid ? opt.validClass : opt.invalidClass );
+                $el.addClass(isValid ? opt.validClass : opt.invalidClass);
             }
         },
 
-        _showmsg: function(e, type, msg) {
+        _showmsg: function (e, type, msg) {
             var me = this,
                 el = e.target;
 
-            if ( $(el).is(':input') ) {
+            if ($(el).is(':input')) {
                 me.showMsg(el, {type: type, msg: msg});
-            }
-            else if ( type === 'tip' ) {
-                me.$el.find(INPUT_SELECTOR +"["+ DATA_TIP +"]", el).each(function(){
+            } else if (type === 'tip') {
+                me.$el.find(INPUT_SELECTOR + "[" + DATA_TIP + "]", el).each(function () {
                     me.showMsg(this, {type: type, msg: msg});
                 });
             }
         },
 
-        _hidemsg: function(e) {
+        _hidemsg: function (e) {
             var $el = $(e.target);
 
-            if ( $el.is(':input') ) {
+            if ($el.is(':input')) {
                 this.hideMsg($el);
             }
         },
 
         // Validated a field
-        _validatedField: function(el, field, ret) {
+        _validatedField: function (el, field, ret) {
             var me = this,
                 opt = me.options,
                 isValid = field.isValid = ret.isValid = !!ret.isValid,
@@ -852,8 +852,8 @@
             isFunction(opt.validation) && opt.validation.call(me, el, ret);
 
             // trigger event
-            $(el).attr( ARIA_INVALID, isValid ? null : true )
-                 .trigger( callback + CLS_NS_FIELD, [ret, me] );
+            $(el).attr(ARIA_INVALID, isValid ? null : true)
+                .trigger(callback + CLS_NS_FIELD, [ret, me]);
             me.$el.triggerHandler('validation', [ret, me]);
 
             if (me.checkOnly) return;
@@ -862,19 +862,19 @@
             me._makeMsg.apply(me, arguments);
         },
 
-        _makeMsg: function(el, field, ret) {
+        _makeMsg: function (el, field, ret) {
             // show or hide the message
-            if ( field.msgMaker || this.options.msgMaker ) {
+            if (field.msgMaker || this.options.msgMaker) {
                 ret = $.extend({}, ret);
                 if (field._e === 'focusin') {
                     ret.type = 'tip';
                 }
-                this[ ret.showOk || ret.msg || ret.type === 'tip' ? 'showMsg' : 'hideMsg' ](el, ret, field);
+                this[ret.showOk || ret.msg || ret.type === 'tip' ? 'showMsg' : 'hideMsg'](el, ret, field);
             }
         },
 
         // Validated a rule
-        _validatedRule: function(el, field, ret, msgOpt) {
+        _validatedRule: function (el, field, ret, msgOpt) {
             field = field || me.getField(el);
             msgOpt = msgOpt || {};
 
@@ -893,17 +893,13 @@
             if (ret === null) {
                 me._validatedField(el, field, {isValid: true, skip: true});
                 return;
-            }
-            else if (ret === undefined) {
+            } else if (ret === undefined) {
                 transfer = true;
-            }
-            else if (ret === true || ret === '') {
+            } else if (ret === true || ret === '') {
                 isValid = true;
-            }
-            else if (isString(ret)) {
+            } else if (isString(ret)) {
                 msg = ret;
-            }
-            else if (isObject(ret)) {
+            } else if (isObject(ret)) {
                 if (ret.error) {
                     msg = ret.error;
                 } else {
@@ -919,7 +915,7 @@
             }
             if (rule.or) {
                 if (isValid) {
-                    while ( field._i < field.rules.length && field.rules[field._i].or ) {
+                    while (field._i < field.rules.length && field.rules[field._i].or) {
                         field._i++;
                     }
                 } else {
@@ -954,13 +950,13 @@
                         4. rule returned message;
                         5. default message;
                     */
-                    msg = (_getDataMsg(el, field, msg || rule.msg || me.messages[method]) || me.messages.fallback).replace(/\{0\|?([^\}]*)\}/, function(){
+                    msg = (_getDataMsg(el, field, msg || rule.msg || me.messages[method]) || me.messages.fallback).replace(/\{0\|?([^\}]*)\}/, function () {
                         return me._getDisplay(el, field.display) || arguments[1] || me.messages[0];
                     });
                 }
                 if (!isValid) field.isValid = isValid;
                 msgOpt.msg = msg;
-                $(el).trigger( (isValid ? 'valid' : 'invalid') + CLS_NS_RULE, [method, msg]);
+                $(el).trigger((isValid ? 'valid' : 'invalid') + CLS_NS_RULE, [method, msg]);
             }
 
             if (special && (!transfer || rule.and)) {
@@ -978,7 +974,7 @@
             }
 
             // the current rule has passed, continue to validate
-            if ( (isValid || special) && field._i < field.rules.length - 1) {
+            if ((isValid || special) && field._i < field.rules.length - 1) {
                 field._i++;
                 me._checkRule(el, field);
             }
@@ -1004,7 +1000,7 @@
         },
 
         // Verify a rule form a field
-        _checkRule: function(el, field) {
+        _checkRule: function (el, field) {
             var me = this,
                 ret,
                 fn,
@@ -1023,13 +1019,11 @@
             field._r = method;
 
             if (old && !field.must && !rule.must && rule.result !== undefined &&
-                 old.ruleName === method && old.id === el.id &&
-                value && old.value === value )
-            {
+                old.ruleName === method && old.id === el.id &&
+                value && old.value === value) {
                 // get result from cache
                 ret = rule.result;
-            }
-            else {
+            } else {
                 // get result from current rule
                 fn = _getDataRule(el, method) || me.rules[method] || noop;
                 ret = fn.call(me, el, params, field);
@@ -1051,7 +1045,7 @@
 
                 // waiting to parse the response data
                 ret.then(
-                    function(d, textStatus, jqXHR) {
+                    function (d, textStatus, jqXHR) {
                         var data = jqXHR.responseText,
                             result,
                             dataFilter = field.dataFilter || me.options.dataFilter || _dataFilter;
@@ -1071,10 +1065,10 @@
                         rule.result = field.old ? result : undefined;
                         me._validatedRule(el, field, result);
                     },
-                    function(jqXHR, textStatus){
+                    function (jqXHR, textStatus) {
                         me._validatedRule(el, field, me.messages[textStatus] || textStatus);
                     }
-                ).always(function(){
+                ).always(function () {
                     delete me.deferred[key];
                 });
             }
@@ -1085,11 +1079,11 @@
         },
 
         // Processing the validation
-        _validate: function(el, field) {
+        _validate: function (el, field) {
             var me = this;
 
             // doesn't validate the element that has "disabled" or "novalidate" attribute
-            if ( el.disabled || attr(el, NOVALIDATE) !== null ) {
+            if (el.disabled || attr(el, NOVALIDATE) !== null) {
                 return;
             }
 
@@ -1121,7 +1115,7 @@
          * @param {Element} el - input element
          * @param {String} rule - rule name
          */
-        test: function(el, rule) {
+        test: function (el, rule) {
             var me = this,
                 ret,
                 parts = rRule.exec(rule),
@@ -1141,7 +1135,7 @@
         },
 
         // Get a range of validation messages
-        getRangeMsg: function(value, params, field, suffix) {
+        getRangeMsg: function (value, params, field, suffix) {
             if (!params) return;
 
             var me = this,
@@ -1167,23 +1161,20 @@
                     }
                     args = args.concat(p);
                     c = e ? 'gtlt' : 'rg';
-                }
-                else if (a && !b) {
+                } else if (a && !b) {
                     if (isNumber && compare(value, +a)) {
                         result = true;
                     }
                     args.push(a);
                     c = e ? 'gt' : 'gte';
-                }
-                else if (!a && b) {
+                } else if (!a && b) {
                     if (isNumber && compare(+b, value)) {
                         result = true;
                     }
                     args.push(b);
                     c = e ? 'lt' : 'lte';
                 }
-            }
-            else {
+            } else {
                 if (value === +a) {
                     result = true;
                 }
@@ -1198,7 +1189,7 @@
                 args[0] = msg[c];
             }
 
-            return result || ( rule.msg = me.renderMsg.apply(null, args) );
+            return result || (rule.msg = me.renderMsg.apply(null, args));
         },
 
         /**
@@ -1207,7 +1198,7 @@
          * @method renderMsg
          * @return {String}
          */
-        renderMsg: function() {
+        renderMsg: function () {
             var args = arguments,
                 tpl = args[0],
                 i = args.length;
@@ -1221,25 +1212,25 @@
             return tpl;
         },
 
-        _getDisplay: function(el, str) {
+        _getDisplay: function (el, str) {
             return !isString(str) ? isFunction(str) ? str.call(this, el) : '' : str;
         },
 
-        _getMsgOpt: function(obj) {
+        _getMsgOpt: function (obj) {
             return $.extend({}, this.msgOpt, isString(obj) ? {msg: obj} : obj);
         },
 
-        _getMsgDOM: function(el, msgOpt) {
+        _getMsgDOM: function (el, msgOpt) {
             var $el = $(el), $msgbox, datafor, tgt, container;
 
-            if ( $el.is(':input') ) {
+            if ($el.is(':input')) {
                 tgt = msgOpt.target || attr(el, DATA_TARGET);
                 if (tgt) {
                     tgt = isFunction(tgt) ? tgt.call(this, el) : this.$el.find(tgt);
                     if (tgt.length) {
-                        if ( tgt.is(':input') ) {
+                        if (tgt.is(':input')) {
                             el = tgt.get(0);
-                        } else if ( tgt.hasClass(CLS_MSG_BOX) ) {
+                        } else if (tgt.hasClass(CLS_MSG_BOX)) {
                             $msgbox = tgt;
                         } else {
                             container = tgt;
@@ -1257,15 +1248,15 @@
             if (!$msgbox.length) {
                 $el = this.$el.find(tgt || el);
 
-                $msgbox = $('<'+ msgOpt.wrapper + '>').attr({
+                $msgbox = $('<' + msgOpt.wrapper + '>').attr({
                     'class': CLS_MSG_BOX + (msgOpt.cls ? ' ' + msgOpt.cls : ''),
                     'style': msgOpt.style || '',
                     'for': datafor
                 });
 
-                if ( _checkable(el) ) {
+                if (_checkable(el)) {
                     var $parent = $el.parent();
-                    $msgbox.appendTo( $parent.is('label') ? $parent.parent() : $parent );
+                    $msgbox.appendTo($parent.is('label') ? $parent.parent() : $parent);
                 } else {
                     if (container) {
                         $msgbox.appendTo(container);
@@ -1285,7 +1276,7 @@
          * @param {Element} el - input element
          * @param {Object} msgOpt
          */
-        showMsg: function(el, msgOpt, /*INTERNAL*/ field) {
+        showMsg: function (el, msgOpt, /*INTERNAL*/ field) {
             if (!el) return;
             var me = this,
                 opt = me.options,
@@ -1294,7 +1285,7 @@
                 $msgbox;
 
             if (isObject(el) && !el.jquery && !msgOpt) {
-                $.each(el, function(key, msg) {
+                $.each(el, function (key, msg) {
                     var el = me.elements[key] || me.$el.find(_key2selector(key))[0];
                     me.showMsg(el, msg);
                 });
@@ -1310,7 +1301,7 @@
                 if (temp !== null) msgOpt.msg = temp;
             }
 
-            if ( !isString(msgOpt.msg) ) {
+            if (!isString(msgOpt.msg)) {
                 return;
             }
 
@@ -1330,10 +1321,10 @@
             $msgbox = me._getMsgDOM(el, msgOpt);
 
             !rPos.test($msgbox[0].className) && $msgbox.addClass(msgOpt.cls);
-            if ( isIE === 6 && msgOpt.pos === 'bottom' ) {
+            if (isIE === 6 && msgOpt.pos === 'bottom') {
                 $msgbox[0].style.marginTop = $(el).outerHeight() + 'px';
             }
-            $msgbox.html( msgMaker.call(me, msgOpt) )[0].style.display = '';
+            $msgbox.html(msgMaker.call(me, msgOpt))[0].style.display = '';
 
             isFunction(msgOpt.show) && msgOpt.show.call(me, $msgbox, msgOpt.type);
         },
@@ -1345,7 +1336,7 @@
          * @param {Element} el - input element
          * @param {Object} msgOpt optional
          */
-        hideMsg: function(el, msgOpt, /*INTERNAL*/ field) {
+        hideMsg: function (el, msgOpt, /*INTERNAL*/ field) {
             var me = this,
                 opt = me.options,
                 $msgbox;
@@ -1365,7 +1356,7 @@
             $msgbox = me._getMsgDOM(el, msgOpt);
             if (!$msgbox.length) return;
 
-            if ( isFunction(msgOpt.hide) ) {
+            if (isFunction(msgOpt.hide)) {
                 msgOpt.hide.call(me, $msgbox, msgOpt.type);
             } else {
                 $msgbox[0].style.display = 'none';
@@ -1380,7 +1371,7 @@
          * @param {Element} - input element
          * @return {Object} field
          */
-        getField: function(el) {
+        getField: function (el) {
             var me = this,
                 key;
 
@@ -1407,7 +1398,7 @@
          * @param {String} key
          * @param {Object} obj
          */
-        setField: function(key, obj) {
+        setField: function (key, obj) {
             var fields = {};
 
             if (!key) return;
@@ -1430,7 +1421,7 @@
          * @method isFormValid
          * @return {Boolean}
          */
-        isFormValid: function() {
+        isFormValid: function () {
             var fields = this.fields, k, field;
             for (k in fields) {
                 field = fields[k];
@@ -1448,7 +1439,7 @@
          * @method holdSubmit
          * @param {Boolean} hold - If set to false, will release the hold
          */
-        holdSubmit: function(hold) {
+        holdSubmit: function (hold) {
             this.submiting = hold === undefined || hold;
         },
 
@@ -1457,7 +1448,7 @@
          *
          * @method cleanUp
          */
-        cleanUp: function() {
+        cleanUp: function () {
             this._reset(1);
         },
 
@@ -1466,7 +1457,7 @@
          *
          * @method destroy
          */
-        destroy: function() {
+        destroy: function () {
             this._reset(1);
             this.$el.off(CLS_NS).removeData(NS);
             attr(this.$el[0], NOVALIDATE, this._novalidate);
@@ -1515,14 +1506,14 @@
             case 'function':
                 return fn;
             case 'array':
-                var f = function(el) {
+                var f = function (el) {
                     fn.msg = fn[1];
                     return fn[0].test(elementValue(el)) || fn[1] || false;
                 };
                 f.msg = fn[1];
                 return f;
             case 'regexp':
-                return function(el) {
+                return function (el) {
                     return fn.test(elementValue(el));
                 };
         }
@@ -1573,9 +1564,9 @@
         var msg = field.msg,
             item = field._r;
 
-        if ( isObject(msg) ) msg = msg[item];
-        if ( !isString(msg) ) {
-            msg = attr(el, DATA_MSG + '-' + item) || attr(el, DATA_MSG) || ( m ? isString(m) ? m : m[item] : '');
+        if (isObject(msg)) msg = msg[item];
+        if (!isString(msg)) {
+            msg = attr(el, DATA_MSG + '-' + item) || attr(el, DATA_MSG) || (m ? isString(m) ? m : m[item] : '');
         }
 
         return msg;
@@ -1591,7 +1582,7 @@
 
     // Translate ajax response to validation result
     function _dataFilter(data) {
-        if ( isString(data) || ( isObject(data) && ('error' in data || 'ok' in data) ) ) {
+        if (isString(data) || (isObject(data) && ('error' in data || 'ok' in data))) {
             return data;
         }
     }
@@ -1613,47 +1604,47 @@
 
     // Translate field key to jQuery selector.
     function _key2selector(key) {
-        return key.charAt(0) === "#" ? key.replace(/(:|\.|\[|\])/g, "\\$1") : '[name="'+ key +'"]:input';
+        return key.charAt(0) === "#" ? key.replace(/(:|\.|\[|\])/g, "\\$1") : '[name="' + key + '"]:input';
     }
 
 
     // Fixed a issue cause by refresh page in IE.
-    $(window).on('beforeunload', function(){
+    $(window).on('beforeunload', function () {
         this.focus();
     });
 
     $(document)
-    .on('click', ':submit', function(){
-        var input = this, attrNode;
-        if (!input.form) return;
-        // Remember the submit button which is clicked
-        submitButton = input;
-        // Shim for "formnovalidate"
-        attrNode = input.getAttributeNode('formnovalidate');
-        if (attrNode && attrNode.nodeValue !== null || attr(input, NOVALIDATE)!== null) {
-            novalidateonce = true;
-        }
-    })
-    // Automatic initializing form validation
-    .on('focusin submit validate', 'form,.'+CLS_WRAPPER, function(e) {
-        if ( attr(this, NOVALIDATE) !== null ) return;
-        var $form = $(this), me;
-
-        if ( !$form.data(NS) ) {
-            me = _getInstance(this);
-            if ( !$.isEmptyObject(me.fields) ) {
-                // Execute event handler
-                if (e.type === 'focusin') {
-                    me._focusin(e);
-                } else {
-                    me._submit(e);
-                }
-            } else {
-                attr(this, NOVALIDATE, NOVALIDATE);
-                $form.off(CLS_NS).removeData(NS);
+        .on('click', ':submit', function () {
+            var input = this, attrNode;
+            if (!input.form) return;
+            // Remember the submit button which is clicked
+            submitButton = input;
+            // Shim for "formnovalidate"
+            attrNode = input.getAttributeNode('formnovalidate');
+            if (attrNode && attrNode.nodeValue !== null || attr(input, NOVALIDATE) !== null) {
+                novalidateonce = true;
             }
-        }
-    });
+        })
+        // Automatic initializing form validation
+        .on('focusin submit validate', 'form,.' + CLS_WRAPPER, function (e) {
+            if (attr(this, NOVALIDATE) !== null) return;
+            var $form = $(this), me;
+
+            if (!$form.data(NS)) {
+                me = _getInstance(this);
+                if (!$.isEmptyObject(me.fields)) {
+                    // Execute event handler
+                    if (e.type === 'focusin') {
+                        me._focusin(e);
+                    } else {
+                        me._submit(e);
+                    }
+                } else {
+                    attr(this, NOVALIDATE, NOVALIDATE);
+                    $form.off(CLS_NS).removeData(NS);
+                }
+            }
+        });
 
     new Messages({
         fallback: "This field is not valid.",
@@ -1668,43 +1659,40 @@
          * required
          *
          * @example:
-            required
-            required(anotherRule)
-            required(not, -1)
-            required(from, .contact)
+         required
+         required(anotherRule)
+         required(not, -1)
+         required(from, .contact)
          */
-        required: function(element, params, field) {
+        required: function (element, params, field) {
             var me = this,
                 val = trim(elementValue(element)),
                 isValid = true;
 
             if (params) {
-                if ( params.length === 1 ) {
-                    if ( !_checkRuleName(params[0]) ) {
-                        if (!val && !$(params[0], me.$el).length ) {
+                if (params.length === 1) {
+                    if (!_checkRuleName(params[0])) {
+                        if (!val && !$(params[0], me.$el).length) {
                             return null;
                         }
-                    }
-                    else if ( me.rules[params[0]] ) {
-                        if ( !val && !me.test(element, params[0]) ) {
+                    } else if (me.rules[params[0]]) {
+                        if (!val && !me.test(element, params[0])) {
                             attr(element, ARIA_REQUIRED, null);
                             return null;
                         } else {
                             attr(element, ARIA_REQUIRED, true);
                         }
                     }
-                }
-                else if ( params[0] === 'not' ) {
-                    $.each(params.slice(1), function() {
+                } else if (params[0] === 'not') {
+                    $.each(params.slice(1), function () {
                         return (isValid = val !== trim(this));
                     });
-                }
-                else if ( params[0] === 'from' ) {
+                } else if (params[0] === 'from') {
                     var $elements = me.$el.find(params[1]),
                         VALIDATED = '_validated_',
                         ret;
 
-                    isValid = $elements.filter(function(){
+                    isValid = $elements.filter(function () {
                         return !!trim(elementValue(this));
                     }).length >= (params[2] || 1);
 
@@ -1714,8 +1702,8 @@
                         ret = _getDataMsg($elements[0], field) || false;
                     }
 
-                    if ( !$(element).data(VALIDATED) ) {
-                        $elements.data(VALIDATED, 1).each(function(){
+                    if (!$(element).data(VALIDATED)) {
+                        $elements.data(VALIDATED, 1).each(function () {
                             if (element !== this) {
                                 me._checkRule(this, me.getField(this));
                             }
@@ -1733,13 +1721,13 @@
          * integer
          *
          * @example:
-            integer
-            integer[+]
-            integer[+0]
-            integer[-]
-            integer[-0]
+         integer
+         integer[+]
+         integer[+0]
+         integer[-]
+         integer[-0]
          */
-        integer: function(element, params) {
+        integer: function (element, params) {
             var re, z = '0|',
                 p = '[1-9]\\d*',
                 key = params ? params[0] : '*';
@@ -1769,17 +1757,17 @@
          * match another field
          *
          * @example:
-            match[password]    Match the password field (two values ​​must be the same)
-            match[eq, password]  Ditto
-            match[neq, count]  The value must be not equal to the value of the count field
-            match[lt, count]   The value must be less than the value of the count field
-            match[lte, count]  The value must be less than or equal to the value of the count field
-            match[gt, count]   The value must be greater than the value of the count field
-            match[gte, count]  The value must be greater than or equal to the value of the count field
-            match[gte, startDate, date]
-            match[gte, startTime, time]
+         match[password]    Match the password field (two values ​​must be the same)
+         match[eq, password]  Ditto
+         match[neq, count]  The value must be not equal to the value of the count field
+         match[lt, count]   The value must be less than the value of the count field
+         match[lte, count]  The value must be less than or equal to the value of the count field
+         match[gt, count]   The value must be greater than the value of the count field
+         match[gte, count]  The value must be greater than or equal to the value of the count field
+         match[gte, startDate, date]
+         match[gte, startTime, time]
          **/
-        match: function(element, params, field) {
+        match: function (element, params, field) {
             if (!params) return;
 
             var me = this,
@@ -1803,7 +1791,7 @@
             b = elementValue(elem2);
 
             if (!field._match) {
-                me.$el.on('valid'+CLS_NS_FIELD+CLS_NS, selector2, function(){
+                me.$el.on('valid' + CLS_NS_FIELD + CLS_NS, selector2, function () {
                     $(element).trigger('validate');
                 });
                 field._match = field2._match = 1;
@@ -1830,7 +1818,7 @@
                 return true;
             }
 
-            msg = me.messages.match[type].replace( '{1}', me._getDisplay( element, field2.display || key ) );
+            msg = me.messages.match[type].replace('{1}', me._getDisplay(element, field2.display || key));
 
             switch (type) {
                 case 'lt':
@@ -1852,11 +1840,11 @@
          * range numbers
          *
          * @example:
-            range[0~99]    Number 0-99
-            range[0~]      Number greater than or equal to 0
-            range[~100]    Number less than or equal to 100
+         range[0~99]    Number 0-99
+         range[0~]      Number greater than or equal to 0
+         range[~100]    Number less than or equal to 100
          **/
-        range: function(element, params, field) {
+        range: function (element, params, field) {
             return this.getRangeMsg(elementValue(element), params, field);
         },
 
@@ -1864,20 +1852,20 @@
          * how many checkbox or radio inputs that checked
          *
          * @example:
-            checked;       no empty, same to required
-            checked[1~3]   1-3 items
-            checked[1~]    greater than 1 item
-            checked[~3]    less than 3 items
-            checked[3]     3 items
+         checked;       no empty, same to required
+         checked[1~3]   1-3 items
+         checked[1~]    greater than 1 item
+         checked[~3]    less than 3 items
+         checked[3]     3 items
          **/
-        checked: function(element, params, field) {
-            if ( !_checkable(element) ) return;
+        checked: function (element, params, field) {
+            if (!_checkable(element)) return;
 
             var me = this,
                 elem, count;
 
             if (element.name) {
-                count = me.$el.find('input[name="' + element.name + '"]').filter(function() {
+                count = me.$el.find('input[name="' + element.name + '"]').filter(function () {
                     var el = this;
                     if (!elem && _checkable(el)) elem = el;
                     return !el.disabled && el.checked;
@@ -1898,12 +1886,12 @@
          * length of a characters (You can pass the second parameter "true", will calculate the length in bytes)
          *
          * @example:
-            length[6~16]        6-16 characters
-            length[6~]          Greater than 6 characters
-            length[~16]         Less than 16 characters
-            length[~16, true]   Less than 16 characters, non-ASCII characters calculating two-character
+         length[6~16]        6-16 characters
+         length[6~]          Greater than 6 characters
+         length[~16]         Less than 16 characters
+         length[~16, true]   Less than 16 characters, non-ASCII characters calculating two-character
          **/
-        length: function(element, params, field) {
+        length: function (element, params, field) {
             var value = elementValue(element),
                 len = (params[1] === 'true' ? value.replace(rDoubleBytes, 'xx') : value).length;
 
@@ -1916,20 +1904,20 @@
          * @description
          *  remote([get:]url [, name1, [name2 ...]]);
          *  Adaptation three kinds of results (Front for the successful, followed by a failure):
-                1. text:
-                    ''  'Error Message'
-                2. json:
-                    {"ok": ""}  {"error": "Error Message"}
-                3. json wrapper:
-                    {"status": 1, "data": {"ok": ""}}  {"status": 1, "data": {"error": "Error Message"}}
+         1. text:
+         ''  'Error Message'
+         2. json:
+         {"ok": ""}  {"error": "Error Message"}
+         3. json wrapper:
+         {"status": 1, "data": {"ok": ""}}  {"status": 1, "data": {"error": "Error Message"}}
          * @example
-            The simplest:       remote(path/to/server);
-            With parameters:    remote(path/to/server, name1, name2, ...);
-            By GET:             remote(get:path/to/server, name1, name2, ...);
-            Name proxy:         remote(path/to/server, name1, proxyname2:name2, proxyname3:#id3, ...)
-            Query String        remote(path/to/server, foo=1&bar=2, name1, name2, ...)
+         The simplest:       remote(path/to/server);
+         With parameters:    remote(path/to/server, name1, name2, ...);
+         By GET:             remote(get:path/to/server, name1, name2, ...);
+         Name proxy:         remote(path/to/server, name1, proxyname2:name2, proxyname3:#id3, ...)
+         Query String        remote(path/to/server, foo=1&bar=2, name1, name2, ...)
          */
-        remote: function(element, params, field) {
+        remote: function (element, params, field) {
             if (!params) return;
 
             var me = this,
@@ -1939,7 +1927,7 @@
                 queryString = '',
                 url = arr[3],
                 type = arr[2] || 'POST',            // GET / POST
-                rType = (arr[1]||'').toLowerCase(), // CORS / JSONP
+                rType = (arr[1] || '').toLowerCase(), // CORS / JSONP
                 dataType;
 
             rule.must = true;
@@ -1947,7 +1935,7 @@
 
             // There are extra fields
             if (params[1]) {
-                $.map(params.slice(1), function(name) {
+                $.map(params.slice(1), function (name) {
                     var arr, key;
                     if (~name.indexOf('=')) {
                         queryString += '&' + name;
@@ -1955,7 +1943,7 @@
                         arr = name.split(':');
                         name = trim(arr[0]);
                         key = trim(arr[1]) || name;
-                        data[ name ] = me.$el.find( _key2selector(key) ).val();
+                        data[name] = me.$el.find(_key2selector(key)).val();
                     }
                 });
             }
@@ -1985,12 +1973,12 @@
          * @example
          *  validate(name1, #id2)
          */
-        validate: function(element, params) {
+        validate: function (element, params) {
             var VALIDATED = '_validated_';
-            if(!params || $(element).data(VALIDATED)) return;
+            if (!params || $(element).data(VALIDATED)) return;
 
             this.$el.find(
-                $.map(params, function(key){
+                $.map(params, function (key) {
                     return _key2selector(key);
                 }).join(',')
             ).data(VALIDATED, 1).trigger('validate').removeData(VALIDATED);
@@ -2003,10 +1991,10 @@
          *  filter          filtering unsafe characters
          *  filter(regexp)  filtering the "regexp" matched characters
          */
-        filter: function(element, params) {
+        filter: function (element, params) {
             var value = elementValue(element), temp;
 
-            temp = value.replace( params ? (new RegExp("[" + params[0] + "]", "gm")) : rUnsafe, '' );
+            temp = value.replace(params ? (new RegExp("[" + params[0] + "]", "gm")) : rUnsafe, '');
             if (temp !== value) element.value = temp;
         }
     });
@@ -2018,15 +2006,13 @@
      * @static  config
      * @param {Object} options
      */
-    Validator.config = function(options) {
-        $.each(options, function(k, o) {
+    Validator.config = function (options) {
+        $.each(options, function (k, o) {
             if (k === 'rules') {
                 new Rules(o);
-            }
-            else if (k === 'messages') {
+            } else if (k === 'messages') {
                 new Messages(o);
-            }
-            else {
+            } else {
                 defaults[k] = o;
             }
         });
@@ -2039,14 +2025,13 @@
      * @param {String|Object} name
      * @param {Object} obj
      * @example
-        .setTheme( themeName, themeOptions )
-        .setTheme( multiThemes )
+     .setTheme( themeName, themeOptions )
+     .setTheme( multiThemes )
      */
-    Validator.setTheme = function(name, obj) {
-        if ( isObject(name) ) {
+    Validator.setTheme = function (name, obj) {
+        if (isObject(name)) {
             $.extend(true, themes, name);
-        }
-        else if ( isString(name) && isObject(obj) ) {
+        } else if (isString(name) && isObject(obj)) {
             themes[name] = $.extend(themes[name], obj);
         }
     };
@@ -2054,7 +2039,7 @@
     $[NS] = Validator;
 
     // Resource loader
-    (function(URI){
+    (function (URI) {
         var arr, node, i, re, dir, el,
             doc = document,
             scripts = doc.getElementsByTagName('script');
@@ -2067,12 +2052,12 @@
             re = /(.*validator(?:\.min)?.js)\?.*local=([\w\-]*)/;
             while (i-- && !arr) {
                 node = scripts[i];
-                arr = (node.hasAttribute ? node.src : node.getAttribute('src',4)||'').match(re);
+                arr = (node.hasAttribute ? node.src : node.getAttribute('src', 4) || '').match(re);
             }
         }
 
         if (arr) {
-            dir = arr[1].split('/').slice(0, -1).join('/')+'/';
+            dir = arr[1].split('/').slice(0, -1).join('/') + '/';
             el = doc.createElement('link');
             el.rel = 'stylesheet';
             el.href = dir + 'jquery.validator.css';
@@ -2080,9 +2065,9 @@
             if (!URI) {
                 Validator.loading = 1;
                 el = doc.createElement('script');
-                el.src = dir + 'local/' + (arr[2] || doc.documentElement.lang || 'en').replace('_','-') + '.js';
+                el.src = dir + 'local/' + (arr[2] || doc.documentElement.lang || 'en').replace('_', '-') + '.js';
                 i = 'onload' in el ? 'onload' : 'onreadystatechange';
-                el[i] = function() {
+                el[i] = function () {
                     if (!el.readyState || /loaded|complete/.test(el.readyState)) {
                         $(window).trigger('validatorready');
                         delete Validator.loading;

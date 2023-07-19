@@ -8,18 +8,19 @@ import org.springframework.stereotype.Service;
 import com.enterprise.dao.ServersManage;
 import com.enterprise.service.SystemSettingService;
 import com.enterprise.dao.SystemSettingDao;
+
 @Service("systemSettingService")
-public class SystemSettingServiceImpl extends ServersManage<SystemSetting, SystemSettingDao> implements SystemSettingService{
+public class SystemSettingServiceImpl extends ServersManage<SystemSetting, SystemSettingDao> implements SystemSettingService {
 
-	@Override
-	@Resource(name="systemSettingDao")
-	public void setDao(SystemSettingDao dao) {
-		this.dao = dao;
-	}
+    @Override
+    @Resource(name = "systemSettingDao")
+    public void setDao(SystemSettingDao dao) {
+        this.dao = dao;
+    }
 
 
-	@Override
-	public String selectVersion() {
-		return dao.selectVersion();
-	}
+    @Override
+    public String selectVersion() {
+        return dao.selectVersion();
+    }
 }

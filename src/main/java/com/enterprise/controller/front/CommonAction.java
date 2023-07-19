@@ -23,7 +23,7 @@ public class CommonAction {
     private static int backGround = 30;
 
     @RequestMapping("getVerificationCode")
-    public void getVerificationCode(HttpServletRequest request,HttpServletResponse response) throws IOException {
+    public void getVerificationCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setHeader("Pragma", "no-cache");
         response.setHeader("Cache-Control", "no-cache");
         response.setDateHeader("Expires", 0);
@@ -32,7 +32,7 @@ public class CommonAction {
                 imageHeight, BufferedImage.TYPE_INT_BGR);
         Graphics2D g = bufferedImage.createGraphics();
         g.setColor(Color.WHITE);
-        g.fillRect(0, 0, imageWidth - 1, imageHeight -1 );
+        g.fillRect(0, 0, imageWidth - 1, imageHeight - 1);
         Random random = new Random();
         for (int i = 0; i < backGround; i++) {
             int red = random.nextInt(256);
@@ -70,7 +70,7 @@ public class CommonAction {
                 code = String.valueOf(random.nextInt(10));
             }
             ValidateCode.append(code);
-            g.drawString(code, imageWidth / codeNumber * i , 27);
+            g.drawString(code, imageWidth / codeNumber * i, 27);
         }
         request.getSession().setAttribute("validateCode",
                 ValidateCode.toString());

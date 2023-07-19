@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ include file="/manage/system/pageBase.jsp" %>
-<%@ page info="文章分类" %>
+<%@ page info="产品分类" %>
 
 <form action="<%=path %>/manage/articleCategory" name="form" id="form" method="post">
     <div style="height:auto!important;height:550px;min-height:550px;">
@@ -26,12 +26,15 @@
             <tr>
                 <th style="text-align: right;" width="200">分类名称</th>
                 <td style="text-align: left;"><input type="text" size="40" value="${e.catename}" name="catename"
-                                                     data-rule="分类名称:required;catename;length[1~45];remote[unique, id]" onblur="toCode();"
+                                                     data-rule="分类名称:required;catename;length[1~45];remote[unique, id]"
+                                                     onblur="toCode();"
                                                      id="catename"/></td>
             </tr>
             <tr>
                 <th style="text-align: right;" width="200">编码</th>
-                <td style="text-align: left;"><input type="text" size="40" value="${e.code}" name="code" id="code" data-rule="编码:required;letters;length[1~45];remote[unique, id]"/></td>
+                <td style="text-align: left;"><input type="text" size="40" value="${e.code}" name="code" id="code"
+                                                     data-rule="编码:required;letters;length[1~45];remote[unique, id]"/>
+                </td>
             </tr>
             <tr>
                 <th style="text-align: right;">排序</th>
@@ -71,11 +74,12 @@
 <script type="text/javascript" src="<%=path%>/resource/js/MooTools-Core-1.6.0.js"></script>
 <script type="text/javascript" src="<%=path%>/resource/js/pinyin.js"></script>
 <script type="text/javascript">
-    function toCode(){
+    function toCode() {
         var pinyin = new Pinyin();
         var code = pinyin.getFullChars($("#catename").val());
         $("#code").val(code);
     }
+
     function commit(obj) {
 
         var _form = $("form");

@@ -8,7 +8,7 @@
 <%@ page language="java" contentType="text/html; UTF-8"
          pageEncoding="UTF-8" %>
 
-<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg"%>
+<%@ taglib uri="http://jsptags.com/tags/navigation/pager" prefix="pg" %>
 <style type="text/css">
     .pageLink {
         color: #4b4b4b;
@@ -33,7 +33,7 @@
               export="currentPageNumber=pageNumber"
               maxPageItems="${pager.pageSize}" maxIndexPages="10" isOffset="true">
 
-        <pg:param name="cc" />
+        <pg:param name="cc"/>
         <pg:first>
             <a href="${pageUrl}" class="pageLink">首页</a>
         </pg:first>

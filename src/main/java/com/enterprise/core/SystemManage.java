@@ -88,54 +88,66 @@ public class SystemManage {
     }
 
     //门户图片
-    public List<IndexImg> getIndexImgs() {return getCacheObject("indexImgs");}
+    public List<IndexImg> getIndexImgs() {
+        return getCacheObject("indexImgs");
+    }
 
-    public void setIndexImgs(List<IndexImg> indexImgs){
-        putCacheObject("indexImgs",(Serializable)(indexImgs));
+    public void setIndexImgs(List<IndexImg> indexImgs) {
+        putCacheObject("indexImgs", (Serializable) (indexImgs));
     }
 
     //前五条留言
-    public List<Messages> getMessages(){return getCacheObject("messages");}
-
-    public void setMessages(List<Messages> messages){putCacheObject("messages",(Serializable)(messages));}
-
-    //文章类别
-    public List<ArticleCategory> getArticleCategory(){
-        return getCacheObject("articleCategory");
+    public List<Messages> getMessages() {
+        return getCacheObject("messages");
     }
-    public void setArticleCategory(List<ArticleCategory> articleCategory){
-        putCacheObject("articleCategory",(Serializable)(articleCategory));
+
+    public void setMessages(List<Messages> messages) {
+        putCacheObject("messages", (Serializable) (messages));
     }
+
+    //产品类别
+    public List<ProductCategory> getProductCategory() {
+        return getCacheObject("productCategory");
+    }
+
+    public void setProductCategory(List<ProductCategory> productCategory) {
+        putCacheObject("productCategory", (Serializable) (productCategory));
+    }
+
     //联系我们
-    public List<Contact> getContact(){
+    public List<Contact> getContact() {
         return getCacheObject("contacts");
     }
-    public void setContact(List<Contact> contacts){
-        putCacheObject("contacts",(Serializable)(contacts));
+
+    public void setContact(List<Contact> contacts) {
+        putCacheObject("contacts", (Serializable) (contacts));
     }
 
     //关于我们
-    public List<About> getAbout(){
+    public List<About> getAbout() {
         return getCacheObject("abouts");
     }
-    public void setAbout(List<About> abouts){
-        putCacheObject("abouts",(Serializable)(abouts));
+
+    public void setAbout(List<About> abouts) {
+        putCacheObject("abouts", (Serializable) (abouts));
     }
 
     //服务领域
-    public List<Service> getService(){
+    public List<Service> getService() {
         return getCacheObject("services");
     }
-    public void setService(List<Service> servies){
-        putCacheObject("services",(Serializable)(servies));
+
+    public void setService(List<Service> servies) {
+        putCacheObject("services", (Serializable) (servies));
     }
 
     //产品领域
-    public List<Product> getProducts(){
+    public List<Product> getProducts() {
         return getCacheObject("products");
     }
-    public void setProducts(List<Product> products){
-        putCacheObject("products",(Serializable)(products));
+
+    public void setProducts(List<Product> products) {
+        putCacheObject("products", (Serializable) (products));
     }
 
 }

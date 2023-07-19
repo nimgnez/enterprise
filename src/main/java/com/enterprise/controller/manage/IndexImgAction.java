@@ -17,30 +17,34 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
-/**门户滚动图片Action
+/**
+ * 门户滚动图片Action
  * Created by Cesiumai on 2016/5/27.
  */
 @Controller
 @RequestMapping("/manage/indexImg/")
-public class IndexImgAction extends BaseController<IndexImg>{
+public class IndexImgAction extends BaseController<IndexImg> {
     private static final String page_toEdit = "/manage/indexImg/indexImgList";
     private static final String page_toList = "/manage/indexImg/indexImgList";
     private static final String page_toAdd = "/manage/indexImg/indexImgList";
 
-    public IndexImgAction(){
+    public IndexImgAction() {
         super.page_toAdd = page_toAdd;
         super.page_toEdit = page_toEdit;
         super.page_toList = page_toList;
     }
+
     private ServletContext servletContext;
 
     public void setServletContext(ServletContext servletContext) {
         this.servletContext = servletContext;
     }
+
     @Autowired
     private IndexImgService indexImgService;
     @Autowired
     private FrontCache frontCache;
+
     @Override
     public Services<IndexImg> getService() {
         return indexImgService;
@@ -49,6 +53,7 @@ public class IndexImgAction extends BaseController<IndexImg>{
 
     /**
      * 更新
+     *
      * @param request
      * @param e
      * @param flushAttrs
@@ -67,6 +72,7 @@ public class IndexImgAction extends BaseController<IndexImg>{
 
     /**
      * 插入
+     *
      * @param request
      * @param e
      * @param flushAttrs
@@ -79,12 +85,13 @@ public class IndexImgAction extends BaseController<IndexImg>{
         insertAfter(e);
         //加载门户图片缓存
         frontCache.loadIndexImg();
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
 
     /**
      * 批量删除
+     *
      * @param request
      * @param ids
      * @param e
@@ -97,15 +104,16 @@ public class IndexImgAction extends BaseController<IndexImg>{
         indexImgService.deletes(ids);
         //加载门户图片缓存
         frontCache.loadIndexImg();
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
+
     @RequestMapping("delete")
-    public String delete(HttpServletRequest request,  @ModelAttribute("e") IndexImg e, RedirectAttributes flushAttrs) throws Exception {
+    public String delete(HttpServletRequest request, @ModelAttribute("e") IndexImg e, RedirectAttributes flushAttrs) throws Exception {
         indexImgService.delete(e);
         //加载门户图片缓存
         frontCache.loadIndexImg();
-        addMessage(flushAttrs,"操作成功！");
+        addMessage(flushAttrs, "操作成功！");
         return "redirect:selectList";
     }
 

@@ -10,6 +10,7 @@
     border-bottom: 1px dotted #CCCCCC;
     padding: 5px;
 }
+
 .tableOnebor td, .tableOnebor th {
     border-right: 1px dotted #CCCCCC;
     border-bottom: 1px dotted #CCCCCC;
@@ -26,6 +27,7 @@
     -webkit-appearance: none;
     resize: none;
 }
+
 .pr {
     padding-right: 10px;
 }
@@ -45,6 +47,7 @@
     padding-bottom: 10px;
     margin-bottom: 15px;
 }
+
 .filter {
     margin: 0 0 10px -2px;
     height: 35px;

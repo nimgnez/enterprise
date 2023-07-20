@@ -2582,14 +2582,15 @@
                     b.setMaskIndex(c.z - 1)
                 }
                 return a
-            }, errorDialog: function (a) {
-                var b = this, c = b.createDialog({
-                    width: 750,
-                    title: b.lang("uploadError"),
-                    body: '<div style="padding:10px 20px;"><iframe frameborder="0" style="width:708px;height:400px;"></iframe></div>'
-                }), d = K("iframe", c.div), e = K.iframeDoc(d);
-                return e.open(), e.write(a), e.close(), K(e.body).css("background-color", "#FFF"), d[0].contentWindow.focus(), b
-            }
+            },
+            // }, errorDialog: function (a) {
+            //     var b = this, c = b.createDialog({
+            //         width: 750,
+            //         title: b.lang("uploadError"),
+            //         body: '<div style="padding:10px 20px;"><iframe frameborder="0" style="width:708px;height:400px;"></iframe></div>'
+            //     }), d = K("iframe", c.div), e = K.iframeDoc(d);
+            //     return e.open(), e.write(a), e.close(), K(e.body).css("background-color", "#FFF"), d[0].contentWindow.focus(), b
+            // }
         }, _instances = [], K.remove = function (a) {
             _eachEditor(a, function (a) {
                 this.remove(), _instances.splice(a, 1)
@@ -2964,7 +2965,7 @@
     pasteError: "您的浏览器安全设置不允许使用粘贴操作，请使用快捷键(Ctrl+V)来完成。",
     ajaxLoading: "加载中，请稍候 ...",
     uploadLoading: "上传中，请稍候 ...",
-    //uploadError: "上传错误",
+    uploadError: "上传错误",
     "plainpaste.comment": "请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。",
     "wordpaste.comment": "请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。",
     "code.pleaseInput": "请输入程序代码。",

@@ -14,15 +14,28 @@ public class Product extends PageModel implements Serializable {
     private String modelNo;  //产品型号
     private Integer categoryId;     //产品分类
     private String externalDim;    //产品外形尺寸
+    private String externalE;
     private String internalDim;  //产品内径尺寸
+    private String internalE;
     private String weight;         //重量
+    private String weightE;
     private String volumn;       //体积
+    private String volumnE;
     private String sku;          //库存
-    private String interestetLink;      //兴趣链接
+    private String keywords;      //兴趣链接
     private String tags;    //产品标签
+
+    private String image; //主图
+    private String image1; //缩略图1
+    private String image2;
+    private String image3;
+    private String image4;
     private String status;//产品是否上线
     private Date createTime; //创建时间
     private Date updateTime; //更新时间
+
+    private String catename;    //分类名
+
 
     @Override
     public void clean() {
@@ -31,15 +44,25 @@ public class Product extends PageModel implements Serializable {
         modelNo = null;
         categoryId = null;
         externalDim = null;
+        externalE = null;
         internalDim = null;
+        internalE = null;
         weight = null;
+        weightE = null;
         volumn = null;
+        volumnE = null;
         sku = null;
-        interestetLink = null;
+        keywords = null;
+        image = null;
+        image1= null;
+        image2 =null;
+        image3 = null;
+        image4 = null;
         tags = null;
         status = null;
         createTime = null;
         updateTime = null;
+        catename = null;
     }
 
     public String getTitle() {
@@ -106,12 +129,12 @@ public class Product extends PageModel implements Serializable {
         this.sku = sku;
     }
 
-    public String getInterestetLink() {
-        return interestetLink;
+    public String getKeywords() {
+        return keywords;
     }
 
-    public void setInterestetLink(String interestetLink) {
-        this.interestetLink = interestetLink;
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
     }
 
     public String getTags() {
@@ -138,11 +161,92 @@ public class Product extends PageModel implements Serializable {
         this.updateTime = updateTime;
     }
 
+
+    public String getExternalE() {
+        return externalE;
+    }
+
+    public void setExternalE(String externalE) {
+        this.externalE = externalE;
+    }
+
+    public String getInternalE() {
+        return internalE;
+    }
+
+    public void setInternalE(String internalE) {
+        this.internalE = internalE;
+    }
+
+    public String getWeightE() {
+        return weightE;
+    }
+
+    public void setWeightE(String weightE) {
+        this.weightE = weightE;
+    }
+
+    public String getVolumnE() {
+        return volumnE;
+    }
+
+    public void setVolumnE(String volumnE) {
+        this.volumnE = volumnE;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getImage1() {
+        return image1;
+    }
+
+    public void setImage1(String image1) {
+        this.image1 = image1;
+    }
+
+    public String getImage2() {
+        return image2;
+    }
+
+    public void setImage2(String image2) {
+        this.image2 = image2;
+    }
+
+    public String getImage3() {
+        return image3;
+    }
+
+    public void setImage3(String image3) {
+        this.image3 = image3;
+    }
+
+    public String getImage4() {
+        return image4;
+    }
+
+    public void setImage4(String image4) {
+        this.image4 = image4;
+    }
+
+    public String getCatename() {
+        return catename;
+    }
+
+    public void setCatename(String catename) {
+        this.catename = catename;
     }
 }

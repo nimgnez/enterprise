@@ -49,18 +49,18 @@ String order = request.getParameter("order") != null ? request.getParameter("ord
 
 //不允许使用..移动到上一级目录
 if (path.indexOf("..") >= 0) {
-	System.out.println("Access is not allowed.");
+	out.print("Access is not allowed.");
 	return;
 }
 //最后一个字符不是/
 if (!"".equals(path) && !path.endsWith("/")) {
-	System.out.println("Parameter is not valid.");
+	out.print("Parameter is not valid.");
 	return;
 }
 //目录不存在或不是目录
 File currentPathFile = new File(currentPath);
 if(!currentPathFile.isDirectory()){
-	System.out.println("Directory does not exist.");
+	out.print("Directory does not exist.");
 	return;
 }
 

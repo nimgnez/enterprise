@@ -34,18 +34,18 @@
     response.setContentType("text/html; charset=UTF-8");
 
     if (!ServletFileUpload.isMultipartContent(request)) {
-        System.out.println(getError("请选择文件。"));
+        out.print(getError("请选择文件。"));
         return;
     }
 //检查目录
     File uploadDir = new File(savePath);
     if (!uploadDir.isDirectory()) {
-        System.out.println(getError("上传目录不存在。"));
+        out.print(getError("上传目录不存在。"));
         return;
     }
 //检查目录写权限
     if (!uploadDir.canWrite()) {
-        System.out.println(getError("上传目录没有写权限。"));
+        out.print(getError("上传目录没有写权限。"));
         return;
     }
 
@@ -54,7 +54,7 @@
         dirName = "image";
     }
     if (!extMap.containsKey(dirName)) {
-        System.out.println(getError("目录名不正确。"));
+        out.print(getError("目录名不正确。"));
         return;
     }
 //创建文件夹
@@ -85,13 +85,13 @@
         if (!item.isFormField()) {
             //检查文件大小
             if (item.getSize() > maxSize) {
-                System.out.println(getError("上传文件大小超过限制。"));
+                out.print(getError("上传文件大小超过限制。"));
                 return;
             }
             //检查扩展名
             String fileExt = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
             if (!Arrays.<String>asList(extMap.get(dirName).split(",")).contains(fileExt)) {
-                System.out.println(getError("上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。"));
+                out.print(getError("上传文件扩展名是不允许的扩展名。\n只允许" + extMap.get(dirName) + "格式。"));
                 return;
             }
 
@@ -101,14 +101,14 @@
                 File uploadedFile = new File(savePath, newFileName);
                 item.write(uploadedFile);
             } catch (Exception e) {
-                System.out.println(getError("上传文件失败。"));
+                out.print(getError("上传文件失败。"));
                 return;
             }
 
             JSONObject obj = new JSONObject();
             obj.put("error", 0);
             obj.put("url", saveUrl + newFileName);
-            System.out.println(obj.toJSONString());
+            out.print(obj.toJSONString());
         }
     }
 %>

@@ -5,7 +5,10 @@
 <mapper namespace="product">
     <select id="product.selectPageList" parameterType="com.enterprise.entity.Product"
             resultType="com.enterprise.entity.Product">
-        select a.* from t_product a where 1=1
+        select a.*,ac.catename from t_product a join t_productcategory ac on a.categoryId=ac.id where 1=1
+        <if test="categoryId!=null and categoryId!=''">
+            and a.categoryId=#{categoryId}
+        </if>
         <if test="modelNo!=null and modelNo!=''">
             and a.modelNo=#{modelNo}
         </if>
@@ -14,8 +17,11 @@
     </select>
     <select id="product.selectPageCount" parameterType="com.enterprise.entity.Product" resultType="java.lang.Integer">
         select count(*) from t_product where 1=1
+        <if test="categoryId!=null and categoryId!=''">
+            and categoryId=#{categoryId}
+        </if>
         <if test="modelNo!=null and modelNo!=''">
-            and a.modelNo=#{modelNo}
+            and modelNo=#{modelNo}
         </if>
     </select>
     <insert id="product.insert" parameterType="com.enterprise.entity.Product" useGeneratedKeys="true" keyProperty="id">
@@ -33,14 +39,26 @@
         <if test="externalDim!=null and externalDim!=''">
             ,externalDim
         </if>
+        <if test="externalE!=null and externalE!=''">
+            ,externalE
+        </if>
         <if test="internalDim!=null and internalDim!=''">
             ,internalDim
+        </if>
+        <if test="internalE!=null and internalE!=''">
+            ,internalE
         </if>
         <if test="weight!=null and weight!=''">
             ,weight
         </if>
+        <if test="weightE!=null and weightE!=''">
+            ,weightE
+        </if>
         <if test="volumn!=null and volumn!=''">
             ,volumn
+        </if>
+        <if test="volumnE!=null and volumnE!=''">
+            ,volumnE
         </if>
         <if test="sku!=null and sku!=''">
             ,sku
@@ -48,8 +66,23 @@
         <if test="tags!=null and tags!=''">
             ,tags
         </if>
-        <if test="interestetLink!=null and interestetLink!=''">
-            ,interestetLink
+        <if test="keywords!=null and keywords!=''">
+            ,keywords
+        </if>
+        <if test="image!=null and image!=''">
+            ,image
+        </if>
+        <if test="image1!=null and image1!=''">
+            ,image1
+        </if>
+        <if test="image2!=null and image2!=''">
+            ,image2
+        </if>
+        <if test="image3!=null and image3!=''">
+            ,image3
+        </if>
+        <if test="image4!=null and image4!=''">
+            ,image4
         </if>
         ,createTime,updateTime
         ) values (
@@ -66,14 +99,26 @@
         <if test="externalDim!=null and externalDim!=''">
             ,#{externalDim}
         </if>
+        <if test="externalE!=null and externalE!=''">
+            ,#{externalE}
+        </if>
         <if test="internalDim!=null and internalDim!=''">
             ,#{internalDim}
+        </if>
+        <if test="internalE!=null and internalE!=''">
+            ,#{internalE}
         </if>
         <if test="weight!=null and weight!=''">
             ,#{weight}
         </if>
+        <if test="weightE!=null and weightE!=''">
+            ,#{weightE}
+        </if>
         <if test="volumn!=null and volumn!=''">
             ,#{volumn}
+        </if>
+        <if test="volumnE!=null and volumnE!=''">
+            ,#{volumnE}
         </if>
         <if test="sku!=null and sku!=''">
             ,#{sku}
@@ -81,8 +126,23 @@
         <if test="tags!=null and tags!=''">
             ,#{tags}
         </if>
-        <if test="interestetLink!=null and interestetLink!=''">
-            ,#{interestetLink}
+        <if test="keywords!=null and keywords!=''">
+            ,#{keywords}
+        </if>
+        <if test="image!=null and image!=''">
+            ,#{image}
+        </if>
+        <if test="image1!=null and image1!=''">
+            ,#{image1}
+        </if>
+        <if test="image2!=null and image2!=''">
+            ,#{image2}
+        </if>
+        <if test="image3!=null and image3!=''">
+            ,#{image3}
+        </if>
+        <if test="image4!=null and image4!=''">
+            ,#{image4}
         </if>
         ,now(),now()
         )
@@ -102,14 +162,26 @@
         <if test="externalDim!=null and externalDim!=''">
             ,externalDim=#{externalDim}
         </if>
+        <if test="externalE!=null and externalE!=''">
+            ,externalE=#{externalE}
+        </if>
         <if test="internalDim!=null and internalDim!=''">
             ,internalDim=#{internalDim}
+        </if>
+        <if test="internalE!=null and internalE!=''">
+            ,internalE=#{internalE}
         </if>
         <if test="weight!=null and weight!=''">
             ,weight=#{weight}
         </if>
+        <if test="weightE!=null and weightE!=''">
+            ,weightE=#{weightE}
+        </if>
         <if test="volumn!=null and volumn!=''">
             ,volumn=#{volumn}
+        </if>
+        <if test="volumnE!=null and volumnE!=''">
+            ,volumnE=#{volumnE}
         </if>
         <if test="sku!=null and sku!=''">
             ,sku=#{sku}
@@ -117,8 +189,23 @@
         <if test="tags!=null and tags!=''">
             ,tags=#{tags}
         </if>
-        <if test="interestetLink!=null and interestetLink!=''">
-            ,interestetLink=#{interestetLink}
+        <if test="keywords!=null and keywords!=''">
+            ,keywords=#{keywords}
+        </if>
+        <if test="image!=null and image!=''">
+            ,image=#{image}
+        </if>
+        <if test="image1!=null and image1!=''">
+            ,image1=#{image1}
+        </if>
+        <if test="image2!=null and image2!=''">
+            ,image2=#{image2}
+        </if>
+        <if test="image3!=null and image3!=''">
+            ,image3=#{image3}
+        </if>
+        <if test="image4!=null and image4!=''">
+            ,image4=#{image4}
         </if>
         where id = #{id}
     </update>

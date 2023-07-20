@@ -6379,7 +6379,7 @@ KindEditor.lang({
     pasteError: '您的浏览器安全设置不允许使用粘贴操作，请使用快捷键(Ctrl+V)来完成。',
     ajaxLoading: '加载中，请稍候 ...',
     uploadLoading: '上传中，请稍候 ...',
-    //uploadError: '上传错误',
+    uploadError: '上传错误',
     'plainpaste.comment': '请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。',
     'wordpaste.comment': '请使用快捷键(Ctrl+V)把内容粘贴到下面的方框里。',
     'code.pleaseInput': '请输入程序代码。',
@@ -8219,7 +8219,7 @@ KindEditor.plugin('media', function (K) {
                     } catch (e) {
                         self.options.afterError.call(this, '<!doctype html><html>' + serverData + '</html>');
                     }
-                    if (data.error !== 0) {
+                    if (data.error !=0) {
                         showError(itemDiv, K.DEBUG ? data.message : self.options.errorMessage);
                         return;
                     }

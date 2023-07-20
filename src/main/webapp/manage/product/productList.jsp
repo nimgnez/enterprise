@@ -25,8 +25,15 @@
                 <i class="icon-trash"></i>删除
             </button>
             <div style="float: right">
-                <input type="text" value="${e.modelNo}" class="input-medium search-query" name="title"
-                       placeholder="标题"/>
+                <select id="categoryId" name="categoryId">
+                    <option value="">未选择</option>
+                    <c:forEach var="item" items="<%=SystemManage.getInstance().getProductCategory()%>">
+                        <option value="${item.id}"
+                                <c:if test="${e.categoryId eq item.id}">selected="selected" </c:if>>${item.catename}</option>
+                    </c:forEach>
+                </select>
+                <input type="text" value="${e.modelNo}" class="input-medium search-query" name="modelNo"
+                       placeholder="产品型号"/>
                 <button method="selectList" class="btn btn-info" style="padding:0px 5px;margin-top: -4px;"
                         onclick="selectList(this)">
                     <i class="icon-search"></i>查询
@@ -45,7 +52,7 @@
                 <tr>
                     <td><input type="checkbox" name="ids"
                                value="${item.id}"/></td>
-                    <td>${item.categoryId}</td>
+                    <td>${item.catename}</td>
                     <td>${item.modelNo}</td>
                     <td>${item.title}</td>
                     <td><a href="toEdit?id=${item.id}">编辑</a> | <a href="delete?id=${item.id}">删除</a></td>

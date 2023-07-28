@@ -2,27 +2,35 @@ package com.enterprise.controller.front;
 
 import com.enterprise.controller.BaseController;
 import com.enterprise.entity.Product;
+import com.enterprise.entity.ProductInquiry;
 import com.enterprise.entity.page.PageModel;
+import com.enterprise.service.ProductInquiryService;
 import com.enterprise.service.ProductService;
 import com.enterprise.service.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * 产品Action
- *
  */
 @Controller("frontProductController")
 @RequestMapping("/product")
 public class ProductAction extends BaseController<Product> {
-    private static final String page_toList = "/front/index-me";
+    private static final String page_toList = "/front/index-";
+    private static final String page_toEdit = "/front/index-detail";
+
 
     @Autowired
     private ProductService productService;
+    @Autowired
+    private ProductInquiryService productInquiryService;
 
     @Override
     public Services<Product> getService() {
@@ -48,8 +56,8 @@ public class ProductAction extends BaseController<Product> {
         this.initPageSelect();
         setParamWhenInitQuery(product);
         int offset = 0;
-        if (request.getParameter("pager.offset") != null) {
-            offset = Integer.parseInt(request.getParameter("pager.offset"));
+        if (request.getParameter("offset") != null) {
+            offset = Integer.parseInt(request.getParameter("offset"));
         }
         if (offset < 0) {
             offset = 0;
@@ -66,7 +74,26 @@ public class ProductAction extends BaseController<Product> {
         selectListAfter(page);
         page.setPagerUrl("product");
         request.setAttribute("pager", page);
-        return page_toList;
+        return page_toList + product.getCategoryId();
+    }
+
+
+    @RequestMapping("/detail")
+    public String toEdit(@ModelAttribute("e") Product e, ModelMap model) throws Exception {
+        e = getService().selectOne(e);
+        model.addAttribute("e", e);
+        Integer categoryId = e.getCategoryId();
+        List<Product> relations = productService.selectByCategoryId(categoryId);
+        model.addAttribute("relations", relations);
+        return page_toEdit;
+    }
+
+
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String insertInquiry(HttpServletRequest request,  ProductInquiry productInquiry) throws Exception {
+        productInquiryService.insert(productInquiry);
+        return "";
     }
 
 
@@ -141,5 +168,5 @@ public class ProductAction extends BaseController<Product> {
 //        } catch (NumberFormatException e) {
 //            return false;
 //        }
- //   }
+    //   }
 }

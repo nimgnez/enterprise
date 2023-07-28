@@ -251,4 +251,11 @@
         from t_product
         where id = #{id}
     </delete>
+
+
+    <select id="product.selectByCategoryId"  parameterType="int"
+            resultType="com.enterprise.entity.Product">
+        select a.* from t_product a join t_productcategory ac on a.categoryId=ac.id where 1=1
+       and ac.id = #{categoryId} order by a.id desc limit 4
+    </select>
 </mapper>

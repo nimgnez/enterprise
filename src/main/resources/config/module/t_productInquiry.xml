@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="productInquiry">
+    <select id="productInquiry.selectPageList" parameterType="com.enterprise.entity.ProductInquiry"
+            resultType="com.enterprise.entity.ProductInquiry">
+        select *
+        from t_product_inquiry
+        where 1 = 1
+        order by id DESC
+            limit #{offset}, #{pageSize}
+    </select>
+    <select id="productInquiry.selectPageCount" parameterType="com.enterprise.entity.ProductInquiry"
+            resultType="java.lang.Integer">
+        select count(*)
+        from t_product_inquiry
+        where 1 = 1
+    </select>
+    <insert id="productInquiry.insert" parameterType="com.enterprise.entity.ProductInquiry" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into t_product_inquiry(
+        id
+        <if test="ProductModel!=null and ProductModel!=''">
+            ,ProductModel
+        </if>
+        <if test="Quantity!=null and Quantity!=''">
+            ,Quantity
+        </if>
+        <if test="name!=null and name!=''">
+            ,name
+        </if>
+        <if test="email!=null and email!=''">
+            ,email
+        </if>
+        <if test="message!=null and message!=''">
+            ,message
+        </if>
+        ,createTime
+        ) values (
+        #{id}
+        <if test="ProductModel!=null and ProductModel!=''">
+            ,#{ProductModel}
+        </if>
+        <if test="Quantity!=null and Quantity!=''">
+            ,#{Quantity}
+        </if>
+        <if test="name!=null and name!=''">
+            ,#{name}
+        </if>
+        <if test="email!=null and email!=''">
+            ,#{email}
+        </if>
+        <if test="message!=null and message!=''">
+            ,#{message}
+        </if>
+        ,now()
+        )
+    </insert>
+    <update id="productInquiry.update" parameterType="com.enterprise.entity.ProductInquiry">
+        update t_product_inquiry set
+        id = #{id}
+        <if test="Quantity!=null and Quantity!=''">
+            ,Quantity=#{Quantity}
+        </if>
+        where id = #{id}
+    </update>
+    <select id="productInquiry.selectOne" parameterType="com.enterprise.entity.ProductInquiry"
+            resultType="com.enterprise.entity.ProductInquiry">
+        select * from t_product_inquiry where 1=1
+        <if test="id!=0">
+            and id=#{id}
+        </if>
+
+    </select>
+    <select id="productInquiry.selectList" parameterType="com.enterprise.entity.ProductInquiry"
+            resultType="com.enterprise.entity.ProductInquiry">
+        select *
+        from t_product_inquiry
+        where 1 = 1
+        order by orders
+    </select>
+    <select id="productInquiry.selectById" parameterType="int" resultType="com.enterprise.entity.ProductInquiry">
+        select *
+        from t_product_inquiry
+        where 1 = 1
+          and id = #{id}
+    </select>
+    <delete id="productInquiry.delete" parameterType="com.enterprise.entity.ProductInquiry">
+        delete
+        from t_product_inquiry
+        where id = #{id}
+    </delete>
+    <delete id="productInquiry.deleteById" parameterType="int">
+        delete
+        from t_product_inquiry
+        where id = #{id}
+    </delete>
+</mapper>

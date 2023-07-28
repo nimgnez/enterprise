@@ -25,6 +25,7 @@
     <mvc:resources mapping="/resource/**" location="/resource/" cache-period="86400"/>
     <mvc:resources mapping="/attached/**" location="/attached/" cache-period="86400"/>
     <mvc:resources mapping="/static/**" location="/static/"/>
+    <mvc:resources mapping="/front/**" location="/front/"/>
 
     <mvc:default-servlet-handler/>
     <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">

@@ -61,5 +61,8 @@ public class ProductDaoImpl implements ProductDao {
         return (Product) dao.selectOne("product.selectById", id);
     }
 
-
+    @Override
+    public List<Product> selectByCategoryId(Integer categoryId) {
+        return dao.selectList("product.selectByCategoryId",categoryId);
+    }
 }
